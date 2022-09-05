@@ -22,10 +22,6 @@ import com.myapp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.github.reactnativecommunity.location.RNLocationPackage;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
-import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -63,22 +59,7 @@ public class MainApplication extends Application implements ReactApplication {
     }
   }
 
-  // @Override
-  // protected List<ReactPackage> getPackages() {
-  // return Arrays.asList(
-  //   new MainReactPackage(),
-  //   new ReactNativeFirebaseAppPackage(),
-  // }
-  
-  @Override
-  protected List<ReactPackage> getPackages() {
-    return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            // new RNFusedLocationPackage(),
-            new RNFusedLocationPackage(),
-            new RNGeocoderPackage()); // <------ add this 
-             new ReactNativeFirebaseAppPackage(),
-  }
+    
  
 
   @Override

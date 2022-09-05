@@ -10,6 +10,7 @@ function FileUpload() {
   return (
     <View>
       <Button 
+        title="File upload"
         onPress={async () => {
           const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`;
           await reference.putFile(pathToFile)
