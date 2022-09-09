@@ -19,7 +19,13 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator initialRouteName='Home' >
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            headerShown: false
+          }}
+        />
         <Stack.Screen name="Contacts" component={Contact} options={{title: "Our Contacts"}} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

@@ -292,7 +292,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:16.0.1"
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics';
-
+    // compile project(':react-native-geocoder');
+    
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

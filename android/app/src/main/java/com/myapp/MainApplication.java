@@ -22,6 +22,8 @@ import com.myapp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.github.reactnativecommunity.location.RNLocationPackage;
+// import com.devfd.RNGeocoder.RNGeocoderPackage;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -46,6 +48,13 @@ public class MainApplication extends Application implements ReactApplication {
           return "index";
         }
       };
+
+  //     @Override
+  //     protected List<ReactPackage> getPackages() {
+  //     return Arrays.<ReactPackage>asList(
+  //           new MainReactPackage(),
+  //           new RNGeocoderPackage()); 
+  // }
 
   private final ReactNativeHost mNewArchitectureNativeHost =
       new MainApplicationReactNativeHost(this);

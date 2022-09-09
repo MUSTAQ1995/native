@@ -8,6 +8,7 @@ import ScrollRefresh from './components/ScrollRefresh';
 import StatusBar from './components/StatusBar';
 import SwitchComp from './components/SwitchComp';
 import FileUpload from './components/FileUpload';
+import Places from './components/Places';
 const backgroundImage = { uri: '../assets/pngs/bg1.jpg' }
 
 const Home = ({ navigation }) => {
@@ -20,6 +21,9 @@ const Home = ({ navigation }) => {
             email: "email@gmail.com",
         }
     });
+
+    const [singleImage, setSingleImage] = useState("");
+
 
     const gotoContacts = () => {
         navigation.navigate("Contacts", value)
@@ -37,7 +41,6 @@ const Home = ({ navigation }) => {
         saveToPhotos: true,
         selectionLimit:0,
     }, (data) => {
-        data && console.log("Camera functionality")  
         // setImageDetails(data?.assets);
     });};
 
@@ -53,136 +56,24 @@ const Home = ({ navigation }) => {
         saveToPhotos: true,
         selectionLimit:0,
     }, (data)=>{
-        data?.assets && setImageDetails(data.assets);
+        data?.assets && setImageDetails(data.assets) ;
+       
     });};
 
     return (
-        <ImageBackground source={require("../assets/pngs/bg.jpg")} style={styles.container}>
-            <ScrollView style={{ flex: 1 }}>
-                {/* <View style={styles.gallary} >
-                    <Button 
-                        title='kamera'   
-                        onPress={()=>cameraAcess()} 
-                        color="#841584"
-                    />
-                     <Button 
-                        title='Gallary'
-                        onPress={()=>gallaryAcess()} 
-                        color="#000"
-                    />
-                </View>
-                {
-                   imageDetails?.length > 0 && imageDetails?.map((imageData, ind) =>{
-                    return ( 
-                        <View key={ind}>
-                        {imageData ?<Image
-                    source={{
-                        uri: imageData.uri
-                    }}
-                        style={styles.picture}
-                    />: null }
-                    
-                    </View>
-                    )
-                   })
-                }
-                
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    style={styles.picture}
-                    source={require("../assets/pngs/eyes.jpg")}
-                />
-                <Image
-                    source={{
-                        uri: "https://reactnative.dev/img/tiny_logo.png"
-                    }}
-                    style={styles.logo}
-                />
-                <Image
-                    source={{
-                        uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
-                    }}
-                    style={styles.logo}
-                />
-                <SpringPark width={200} height={200} fill={"red"} />
-                <View style={styles.centeredView} >
-                    <Modal
-                        animationType="fade"
-                        transparent={true}
-                        visible={modalView}
-                        onRequestClose={() =>{
-                            Alert.alert("Modal has been closed.");
-                            setModalView(!modalView)
-                        }}
-                    >
-                        <View style={styles.centeredView} >
-                            <View style={styles.modalview}>
-                                 <Text style={styles.modaltext} >Hey Welcome</Text>
-                            </View>
-                            <Pressable 
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalView(false)}
-                            >
-                                <Text style={styles.textStyle} >Hide Modal</Text>
-                            </Pressable>
-                        </View> 
-                    </Modal>
-                    <Pressable 
-                        style={[styles.button, styles.buttonOpen]}
-                        onPress={() =>setModalView(true)}
-                    >
-                        <Text style={styles.textStyle} >Show Modal</Text>
-                    </Pressable>
-                </View> */}
-                <View>    
-                    {/* <Button 
-                        title="Contacts"
-                        onPress={()=> gotoContacts()}
-                    />               
-                    <StatusBar/>
-                    <SwitchComp/> */}
-                    <FileUpload/>
-                </View>
-            </ScrollView>
+        <ImageBackground source={require("../assets/pngs/bg.jpg")} style={styles.container}>      
+            <Map/>
         </ImageBackground>
-
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: "center",
+        width:"100%",
+        height:"100%",
+        position:"relative"
     },
     gallary: {
         flex:1,

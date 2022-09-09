@@ -25,15 +25,15 @@ const Location = () => {
   //   } catch(err){alert(err)}
   // };
 
-  // useEffect(() =>{
-  //   Geolocation.getCurrentPosition(data =>{
-  //     setLat(data.coords.latitude),
-  //     setLng(data.coords.longitude)
-  //     console.log(lat, "only lat")
-  //   })
+  useEffect(() =>{
+    Geolocation.getCurrentPosition(data =>{
+      setLat(data.coords.latitude),
+      setLng(data.coords.longitude)
+      console.log(lat, "only lat")
+    })
    
-  //   lat !== "" && getAddress()
-  // }, [])
+    // lat !== "" && getAddress()
+  }, [])
 
 
   return (
