@@ -4,22 +4,43 @@ import {
   StyleSheet, 
   Text, Image, 
   TouchableOpacity, 
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Alert
  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
+import CountryCode from './CountryCode';
 
-const Login = () => {
+
+const Login = ({ navigation }) => {
 
   //  states:
   const [phoneNumber, setPhoneNumber] = useState(null);
+  const [countryCallingCode, setCountryCallingCode] = useState(null);
+  // const [mobileNumber, setMobileNumber] = useState({
+  //   number: {
+  //     code: countryCallingCode ? countryCallingCode : "",
+  //     mobile: phoneNumber ? phoneNumber : "",
+  //   }
+  // })
   
-  //  ----------------------------------------------------------
-
+  //  -------------------------------------------
   // handlers:
-
   const getPhoneNumber = (e) => {
+    setPhoneNumber(e)
     console.log(e,"Phonen number shgould be display")
   }
+
+  const gotoVerification =() => {
+    if(countryCallingCode &&phoneNumber){
+      navigation.navigate("verify", {
+        code: countryCallingCode,
+        number: phoneNumber,
+      });
+    } else {
+      Alert.alert("Enter Proper Number")
+    }
+  };
+console.log(countryCallingCode, "calling code");
   // -----------------------------------------------------------
   return (
     <View style={styles.container} >
@@ -28,14 +49,14 @@ const Login = () => {
           source={require("../../../assets/lagoba_assets/Login.png")}
         />
         <KeyboardAvoidingView 
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior="padding"       
           style={{flex: 1 }}
         >
           <View style={styles.login} >
             <Text  style={styles.account}>Login account</Text>
             <View style={styles.input_view} >
-              <View>
-                <Text>Code</Text>
+              <View style={styles.county_code} >
+                <CountryCode setCallingCode={setCountryCallingCode}/>
               </View>
               <TextInput 
                 style={styles.text_input}
@@ -44,11 +65,12 @@ const Login = () => {
                 keyboardType="numeric"
                 onChangeText={(e) =>getPhoneNumber(e)}
                 autoFocus={false}
-                maxLength={14}
+                maxLength={10}
               />
             </View> 
             <TouchableOpacity
                 style={styles.button}
+                onPress={()=> gotoVerification()}
               >
                 <Text style={styles.next} >Next</Text>
               </TouchableOpacity>
@@ -116,6 +138,10 @@ const styles= StyleSheet.create({
     fontFamily:12,
     fontFamily: "Gotham Pro",
     textAlign:"left"
+  },
+  county_code: {
+    flex:1,
+    justifyContent:"center"
   }
 })
 

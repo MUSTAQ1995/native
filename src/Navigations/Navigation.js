@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //componets
 import Home from '../screens/Home';
 import Contact from '../screens/Contact';
-import Login from '../screens/components/Laboga/Login';
+
 import ForgotPassword from '../screens/Login/ForgotPassword';
 import SignUp from '../screens/Login/SignUp';
 import CustomValidation from '../screens/Login/CustomValidation';
@@ -12,7 +12,10 @@ import KeyboardAvoid from '../screens/components/KeyboardAvoid';
 import Header from "../screens/Header";
 import { Button } from "react-native";
 
-
+// Lagoba:
+import Login from '../screens/components/Laboga/Login';
+import Verify from '../screens/components/Laboga/Verify';
+import Steppe from '../screens/components/Laboga/Steppe';
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -51,6 +54,20 @@ export const Navigation = () => {
           name="Login" 
           component={Login} 
            options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="verify"
+          component={Verify}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="stepper"
+          component={Steppe}
+          options={{
             headerShown: false
           }}
         />
