@@ -127,9 +127,9 @@ const Map = () => {
           style={styles.btn}
         />
       </View>
-      <View style={styles.places} >
+      {/* <View style={styles.places} >
         <Places/>
-      </View> 
+      </View>  */}
     </View>
   )
 };

@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ImageBackground, ScrollView, Modal, Alert, Pressable, Button } from 'react-native';
-import SpringPark from "../assets/svgs/spring-park.svg";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Map from './components/Map';
-import Location from './components/Location';
-import ScrollRefresh from './components/ScrollRefresh';
-import StatusBar from './components/StatusBar';
-import SwitchComp from './components/SwitchComp';
-import FileUpload from './components/FileUpload';
-import Places from './components/Places';
+import Contact from "./Contact";
 const backgroundImage = { uri: '../assets/pngs/bg1.jpg' }
 
 const Home = ({ navigation }) => {
@@ -27,6 +21,10 @@ const Home = ({ navigation }) => {
 
     const gotoContacts = () => {
         navigation.navigate("Contacts", value)
+    };
+
+    const gotoHeader = () => {
+        navigation.navigate("Header")
     }
 
     const cameraAcess = () =>{ launchCamera({
@@ -62,7 +60,15 @@ const Home = ({ navigation }) => {
 
     return (
         <ImageBackground source={require("../assets/pngs/bg.jpg")} style={styles.container}>      
-            <Map/>
+            {/* <Map/> */}
+           <Button 
+                title="Go to Contacts"
+                onPress={()=>gotoContacts()}
+           />
+           <Button 
+                title="Go to Header"
+                onPress={()=>gotoHeader()}
+           />
         </ImageBackground>
     );
 };
