@@ -4,18 +4,18 @@ import CountryPicker from 'react-native-country-picker-modal'
 
 const CountryCode = ({setCallingCode}) => {
 
-  const [countryCode, setCountryCode] = useState("IN");
+  const [countryCode, setCountryCode] = useState("SA");
   const [country, setCountry] = useState(null);
-  const [withFlag, setWithFlag] = useState(true);
-  const [withCallingCode, setWithCallingCode] = useState(false);
+  // const [withCallingCode, setWithCallingCode] = useState(+966);
   const [withFilter, setWithFilter] = useState(true);
   const [countryCallingCode, setCountryCallingCode] = useState(null);
+  const [withCallingCodeButton, setWithCallingCodeButton] = useState(true)
 
   const onSelect = (country) => {
     setCountryCallingCode(Number(country.callingCode))
     setCountryCode(country.cca2)
     setCountry(country)
-    setCallingCode(Number(country.callingCode))
+    setCallingCode(country.callingCode.toString())
   }
 
   return (
@@ -23,10 +23,11 @@ const CountryCode = ({setCallingCode}) => {
       <CountryPicker
         {...{
           countryCode,
-          withFlag,
-          withCallingCode,
+          // withFlag,
+          // withCallingCode,
           withFilter,
           onSelect,
+          withCallingCodeButton
         }}
         // visible
       />

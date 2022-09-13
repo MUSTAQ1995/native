@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView, 
   StyleSheet,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
@@ -22,6 +23,10 @@ const Verify = ({ route, navigation}) => {
     navigation.navigate("stepper")
   }
   return (
+    <ImageBackground
+      source={require("../../../assets/lagoba_assets/bckgn.png")}
+      style={styles.bckgn}
+    >
     <View style={styles.container} >
         <Image 
           style={styles.pic}
@@ -37,7 +42,13 @@ const Verify = ({ route, navigation}) => {
               <Text style={styles.display_number} >
                 A verification code has been sent to
               </Text>
-              <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${code} ${number}`} Icon</Text>
+              <View style={{ display:"flex",flexDirection:"row", justifyContent:"center"}} >
+                <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${code} ${number}`} </Text>
+                <Image 
+                  source={require("../../../assets/lagoba_assets/edit.png")}
+                  style={{height:15, width:15, marginTop:5}}
+                />
+              </View>
             </View>
             <View style={styles.otp} >
               <OTPInputView  
@@ -70,38 +81,47 @@ const Verify = ({ route, navigation}) => {
           </View>
         </KeyboardAvoidingView>
     </View>
+    </ImageBackground>
   )
 };
 
 const styles= StyleSheet.create({
+  bckgn:{
+    flex:1,
+    width:"100%",
+    height:"100%"
+  },
   container: {
     flex: 1,
-    backgroundColor: "#57504B",
-    justifyContent:"center"
+    // backgroundColor: "#57504B",
+    justifyContent:"center",
+    position:"relative"
   },
   pic: {
-    marginLeft: 83,
-    marginRight: 83,
+    // marginLeft: 83,
+    // marginRight: 83,
     width: 193.76,
     height: 72.46,
+    marginHorizontal:"25%",
     marginTop: 101,
     resizeMode: "cover",
-    backgroundColor: "#57504B",
+    // backgroundColor: "#57504B",
   },
   login: {
     width:"100%",
-    height:"100%",
     backgroundColor:"#fff",
     marginTop:105,
     borderTopLeftRadius:45,
     borderTopRightRadius:45,
+    position:"absolute",
+    bottom:0,
   },
   account: {
     width:108,
     fontSize:20,
     height:22,
     fontWeight: "bold",
-    marginLeft:126,
+    marginHorizontal:"40%",
     marginTop: 58,
     color:"#57504B",
   },
@@ -110,6 +130,7 @@ const styles= StyleSheet.create({
     textAlign:"center",
     fontSize:20,
     fontWeight:"bold",
+    color:"#57504B"
 
   },
   input_view : {
@@ -162,7 +183,8 @@ const styles= StyleSheet.create({
   },
   resend: {
    marginTop:26,
-   justifyContent:"center"
+   justifyContent:"center",
+   marginBottom:47,
   },
   otp_text:{
     color: "#F72F2F",

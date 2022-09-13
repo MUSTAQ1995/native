@@ -5,7 +5,8 @@ import {
   Text, Image, 
   TouchableOpacity, 
   KeyboardAvoidingView,
-  Alert
+  Alert,
+  ImageBackground,
  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import CountryCode from './CountryCode';
@@ -15,13 +16,7 @@ const Login = ({ navigation }) => {
 
   //  states:
   const [phoneNumber, setPhoneNumber] = useState(null);
-  const [countryCallingCode, setCountryCallingCode] = useState(null);
-  // const [mobileNumber, setMobileNumber] = useState({
-  //   number: {
-  //     code: countryCallingCode ? countryCallingCode : "",
-  //     mobile: phoneNumber ? phoneNumber : "",
-  //   }
-  // })
+  const [countryCallingCode, setCountryCallingCode] = useState("+966");
   
   //  -------------------------------------------
   // handlers:
@@ -43,70 +38,80 @@ const Login = ({ navigation }) => {
 console.log(countryCallingCode, "calling code");
   // -----------------------------------------------------------
   return (
-    <View style={styles.container} >
-        <Image 
-          style={styles.pic}
-          source={require("../../../assets/lagoba_assets/Login.png")}
-        />
-        <KeyboardAvoidingView 
-          behavior="padding"       
-          style={{flex: 1 }}
-        >
-          <View style={styles.login} >
-            <Text  style={styles.account}>Login account</Text>
-            <View style={styles.input_view} >
-              <View style={styles.county_code} >
-                <CountryCode setCallingCode={setCountryCallingCode}/>
-              </View>
-              <TextInput 
-                style={styles.text_input}
-                value={phoneNumber}
-                placeholder="Enter Your mobile Number"
-                keyboardType="numeric"
-                onChangeText={(e) =>getPhoneNumber(e)}
-                autoFocus={false}
-                maxLength={10}
-              />
-            </View> 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={()=> gotoVerification()}
-              >
-                <Text style={styles.next} >Next</Text>
-              </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-    </View>
+    <ImageBackground
+      source={require("../../../assets/lagoba_assets/bckgn.png")}
+      style={styles.bckgn}
+    >
+      <View style={styles.container} >
+          <Image 
+            style={styles.pic}
+            source={require("../../../assets/lagoba_assets/Login.png")}
+          />
+          <KeyboardAvoidingView 
+            behavior="padding"       
+            style={{flex: 1 }}
+          >
+            <View style={styles.login} >
+              <Text  style={styles.account}>Login account</Text>
+              <View style={styles.input_view} >
+                <View style={styles.county_code} >
+                  <CountryCode  setCallingCode={setCountryCallingCode}/>
+                </View>
+                <TextInput 
+                  style={styles.text_input}
+                  value={phoneNumber}
+                  placeholder="Enter Your mobile Number"
+                  keyboardType="numeric"
+                  onChangeText={(e) =>getPhoneNumber(e)}
+                  autoFocus={false}
+                  maxLength={10}
+                />
+              </View> 
+              <TouchableOpacity
+                  style={styles.button}
+                  onPress={()=> gotoVerification()}
+                >
+                  <Text style={styles.next} >Next</Text>
+                </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+      </View>
+    </ImageBackground>
   )
 };
 
 const styles= StyleSheet.create({
+  bckgn:{
+    flex:1,
+    width:"100%",
+    height:"100%"
+  },
   container: {
     flex: 1,
-    backgroundColor: "#57504B",
+    position:"relative",
   },
   pic: {
-    marginLeft: 89,
-    marginRight: 89,
     width: 182,
     height: 152,
     marginTop: 138,
     resizeMode: "cover",
-    backgroundColor: "#57504B",
+    alignSelf:"center"
   },
   login: {
     width:"100%",
     height:272,
     backgroundColor:"#fff",
-    marginTop:157,
     borderTopLeftRadius:45,
     borderTopRightRadius:45,
+    position:"absolute",
+    bottom:0,
   },
   account: {
     width:143,
     fontSize:20,
     fontWeight: "bold",
-    marginHorizontal:108,
+    alignContent:"center",
+    marginHorizontal:"35%",
     marginTop: 58,
     color:"#57504B"
   },
@@ -121,7 +126,8 @@ const styles= StyleSheet.create({
     justifyContent:"space-around"
   },
   text_input:{
-    width:"80%"
+    width:"75%",
+    color:"black",
   },
   button: {
       marginTop: 16,
@@ -140,8 +146,8 @@ const styles= StyleSheet.create({
     textAlign:"left"
   },
   county_code: {
-    flex:1,
-    justifyContent:"center"
+    justifyContent:"center",
+    width:"25%",
   }
 })
 
