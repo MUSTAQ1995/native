@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
   View, 
   Text,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
+import OtpInputs from 'react-native-otp-inputs';
 
 const Verify = ({ route, navigation}) => {
   const { code, number} = route.params;
@@ -18,13 +18,19 @@ const Verify = ({ route, navigation}) => {
     mobileNumber:number,
   }
 
+  const [isdisable, setIsDisable] = useState(true);
+  
   // re-send OTP:
   const resendOTP = () => {
     console.log("resend OTp")
   };
 
+  const handleOTP = code => {
+    if(code.length >= 6){
+      setIsDisable(false)
+    } else(setIsDisable(true))
+  }
   const submitOTP = () => {
-    console.log( "OTP");
     navigation.navigate("stepper")
   };
 
@@ -37,62 +43,77 @@ const Verify = ({ route, navigation}) => {
       source={require("../../../assets/lagoba_assets/bckgn.png")}
       style={styles.bckgn}
     >
-    <View style={styles.container} >
-        <Image 
-          style={styles.pic}
-          source={require("../../../assets/lagoba_assets/verify.png")}
-        />
-        <KeyboardAvoidingView 
-          behavior="padding"       
-          style={{flex: 1 }}
-        >
-          <View style={styles.login} >
-            <Text style={styles.account}>Verify OTP</Text>
-            <View>
-              <Text style={styles.display_number} >
-                A verification code has been sent to
-              </Text>
-              <View style={{ display:"flex",flexDirection:"row", justifyContent:"center"}} >
-                <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${paramDetails.countryCode} ${paramDetails.mobileNumber}`} </Text>
-                <TouchableOpacity onPress={() => handleEditNumber()} >
-                  <Image 
-                    source={require("../../../assets/lagoba_assets/edit.png")}
-                    style={{height:15, width:15, marginTop:5}}
-                  />
-                </TouchableOpacity>
+      <View style={styles.container} >
+          <Image 
+            style={styles.pic}
+            source={require("../../../assets/lagoba_assets/verify.png")}
+          />
+          <KeyboardAvoidingView 
+            behavior="padding"       
+            style={{flex: 1 }}
+          >
+            <View style={styles.login} >
+              <Text style={styles.account}>Verify OTP</Text>
+              <View>
+                <Text style={styles.display_number} >
+                  A verification code has been sent to
+                </Text>
+                <View style={{ display:"flex",flexDirection:"row", justifyContent:"center"}} >
+                  <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${paramDetails.countryCode} ${paramDetails.mobileNumber}`} </Text>
+                  <TouchableOpacity onPress={() => handleEditNumber()} >
+                    <Image 
+                      source={require("../../../assets/lagoba_assets/edit.png")}
+                      style={{height:15, width:15, marginTop:5}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View  >
+                <OtpInputs 
+                  handleChange={(code)=>handleOTP(code)}
+                  numberOfInputs={6}
+                  defaultValue=""
+                  secureTextEntry={true}
+                  style={{
+                    display:"flex",
+                    flexDirection:"row",
+                    justifyContent:"center",
+                    height:50,
+                  }}
+                  inputContainerStyles={{
+
+                    color:"black",
+                    marginEnd:10,
+              
+                  }}
+                  inputStyles={{
+                    textAlign:"center",
+                    color:"#57504B",
+                    borderBottomColor:"#57504B",
+                    borderBottomWidth:2,
+                  }}
+                  focusStyles={{
+                    backgroundColor:"lightgray22"
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                  disabled={isdisable}
+                  style={isdisable? styles.disable:styles.button}
+                  onPress={()=> submitOTP()}
+              >
+                <Text style={styles.next} >Next</Text>
+              </TouchableOpacity>
+              <View style={styles.resend} >
+                <Text 
+                  onPress={() => resendOTP()}
+                  style={styles.otp_text} >
+                  Resend OTP
+                </Text>
               </View>
             </View>
-            <View style={styles.otp} >
-              <OTPInputView  
-                style={{width: '80%', height: 80,marginHorizontal:40 }}
-                pinCount={6}
-                autoFocusOnLoad
-                secureTextEntry
-                editable
-                // clearInputs22
-                codeInputFieldStyle={styles.underlineStyleBase}
-                codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                onCodeFilled = {(code => {
-                    console.log(`Code is ${code}, you are good to go!`)
-                })}
-              />
-            </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={()=> submitOTP()}
-            >
-              <Text style={styles.next} >Next</Text>
-            </TouchableOpacity>
-            <View style={styles.resend} >
-              <Text 
-                onPress={() => resendOTP()}
-                style={styles.otp_text} >
-                Resend OTP
-              </Text>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-    </View>
+          </KeyboardAvoidingView>
+      </View>
     </ImageBackground>
   )
 };
@@ -178,16 +199,14 @@ const styles= StyleSheet.create({
     marginTop: 28,
   },
 
-  underlineStyleBase: {
-    width: 30,
-    height: 45,
-    borderWidth: 0,
-    borderColor: "#57504B",
-    borderBottomWidth: 2,
-    color: '#000'
-  },
-  underlineStyleHighLighted: {
-    borderColor: "#03DAC6",
+  disable: {
+    marginTop: 10,
+    padding: 10,
+    height: 54,
+    alignItems: "center",
+    backgroundColor: "lightgray",
+    marginHorizontal: 16,
+    justifyContent:'center', 
   },
   resend: {
    marginTop:26,

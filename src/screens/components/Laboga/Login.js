@@ -42,7 +42,6 @@ const Login = ({ navigation, route }) => {
 
   // handlers:
   useEffect(() => {
-    console.log(phoneNumber,countryCallingCode, "==================")
     const unsubscribe = navigation.addListener("focus", () => {
       if (formikRef?.current) {
         setPhoneNumber(phoneNumber)
@@ -50,8 +49,7 @@ const Login = ({ navigation, route }) => {
         formikRef.current.setErrors({});
         formikRef.current.setFieldValue("mobileNumber", phoneNumber);
         formikRef.current.setFieldTouched("mobileNumber", false)
-        setIsDisable(false)
-        console.log(phoneNumber,countryCallingCode, "console" )
+        // setIsDisable(false)
       }
     })
   }, [navigation, initialData]);
@@ -98,7 +96,6 @@ const Login = ({ navigation, route }) => {
     }
   };
   // ---------------------------------------------------------
-
 
   return (
 
@@ -153,7 +150,7 @@ const Login = ({ navigation, route }) => {
                   activeOpacity={1}
                 >
                   <Text style={styles.next} >Next</Text>
-                </TouchableOpacity>
+              </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
       </View>
@@ -240,12 +237,12 @@ const styles= StyleSheet.create({
   },
   disable: {
     marginTop: 10,
-      padding: 10,
-      height: 54,
-      alignItems: "center",
-      backgroundColor: "lightgray",
-      marginHorizontal: 16,
-      justifyContent:'center', 
+    padding: 10,
+    height: 54,
+    alignItems: "center",
+    backgroundColor: "lightgray",
+    marginHorizontal: 16,
+    justifyContent:'center', 
   }
 })
 
