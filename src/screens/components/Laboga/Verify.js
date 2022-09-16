@@ -13,6 +13,11 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 const Verify = ({ route, navigation}) => {
   const { code, number} = route.params;
 
+  const paramDetails = {
+    countryCode: code,
+    mobileNumber:number,
+  }
+
   // re-send OTP:
   const resendOTP = () => {
     console.log("resend OTp")
@@ -21,7 +26,12 @@ const Verify = ({ route, navigation}) => {
   const submitOTP = () => {
     console.log( "OTP");
     navigation.navigate("stepper")
-  }
+  };
+
+  const handleEditNumber = () => {
+    navigation.goBack("login");
+  };
+
   return (
     <ImageBackground
       source={require("../../../assets/lagoba_assets/bckgn.png")}
@@ -43,11 +53,13 @@ const Verify = ({ route, navigation}) => {
                 A verification code has been sent to
               </Text>
               <View style={{ display:"flex",flexDirection:"row", justifyContent:"center"}} >
-                <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${code} ${number}`} </Text>
-                <Image 
-                  source={require("../../../assets/lagoba_assets/edit.png")}
-                  style={{height:15, width:15, marginTop:5}}
-                />
+                <Text style={[styles.display_number, ,{ marginTop:0}]} > {` +${paramDetails.countryCode} ${paramDetails.mobileNumber}`} </Text>
+                <TouchableOpacity onPress={() => handleEditNumber()} >
+                  <Image 
+                    source={require("../../../assets/lagoba_assets/edit.png")}
+                    style={{height:15, width:15, marginTop:5}}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.otp} >
@@ -93,19 +105,15 @@ const styles= StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor: "#57504B",
     justifyContent:"center",
     position:"relative"
   },
   pic: {
-    // marginLeft: 83,
-    // marginRight: 83,
     width: 193.76,
     height: 72.46,
     marginHorizontal:"25%",
     marginTop: 101,
     resizeMode: "cover",
-    // backgroundColor: "#57504B",
   },
   login: {
     width:"100%",

@@ -22,7 +22,7 @@ const SchemaValidation = yup.object().shape({
     .max(11, "Maximum of 11 digits can be used")
 })
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
 
   //  states:
   const [phoneNumber, setPhoneNumber] = useState(null);
@@ -34,20 +34,25 @@ const Login = ({ navigation }) => {
   
   const formikRef = useRef(null);
   const defaultSelect = useRef(null);
-  
+
   const initialData = {
-    mobileNumber:"",
+    mobileNumber:phoneNumber,
   }
   //  -------------------------------------------
-  // handlers:
 
+  // handlers:
   useEffect(() => {
+    console.log(phoneNumber,countryCallingCode, "==================")
     const unsubscribe = navigation.addListener("focus", () => {
       if (formikRef?.current) {
+        setPhoneNumber(phoneNumber)
         formikRef.current.values = initialData
         formikRef.current.setErrors({});
+        formikRef.current.setFieldValue("mobileNumber", phoneNumber);
+        formikRef.current.setFieldTouched("mobileNumber", false)
+        setIsDisable(false)
+        console.log(phoneNumber,countryCallingCode, "console" )
       }
-      setIsDisable(true);
     })
   }, [navigation, initialData]);
 
@@ -59,7 +64,7 @@ const Login = ({ navigation }) => {
 
   const handleValidate = (e) =>{
     formikRef.current.setFieldValue("mobileNumber",e)
-
+    
     //Regular Expressions: for number matching,
     let re1 = new RegExp(/^[0]{1}[5]{2}[0-9]{7}$/);
     let re2 = new RegExp(/^[5]{2}[0-9]{7}$/);
@@ -128,7 +133,6 @@ const Login = ({ navigation }) => {
                   <CountryCode  setCallingCode={setCountryCallingCode}/>
                 </View>
                 <TextInput 
-                  // autoFocus
                   name="mobileNumber"
                   maxLength={maxiMumLength}
                   ref={defaultSelect}
