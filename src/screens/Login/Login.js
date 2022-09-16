@@ -17,7 +17,7 @@ const SchemaValidation = yup.object().shape({
     .string()
     .email("Please enter a valid email")
     .required("Email Address is Required"),
-  password:yup
+  password: yup
     .string()
     // .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
     // .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
@@ -31,7 +31,7 @@ const SchemaValidation = yup.object().shape({
 
 
 // Main Component:
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
 
   // Ref:
   const formikRef = useRef(null);
@@ -40,7 +40,7 @@ const Login = ({navigation}) => {
   //initial values:
   const initialData = {
     email: "",
-    password:"",
+    password: "",
   };
   // ----------------------------------------------------------------------
 
@@ -48,12 +48,12 @@ const Login = ({navigation}) => {
   useEffect(() => {
 
     const unsubscribe = navigation.addListener("focus", () => {
-      if(formikRef?.current){
+      if (formikRef?.current) {
         formikRef.current.values = initialData
         formikRef.current.setErrors({});
       }
     })
-  }, [navigation, initialData]) 
+  }, [navigation, initialData])
 
   // handlers:
   const handleNavigate = values => {
@@ -62,56 +62,54 @@ const Login = ({navigation}) => {
 
   // ---------------------------------------------------------------------
   return (
-    <Formik 
+    <Formik
       innerRef={formikRef}
       initialValues={initialData}
       validationSchema={SchemaValidation}
-      onSubmit={(values, {resetForm,setErrors}) =>(
+      onSubmit={(values, { resetForm, setErrors }) => (
         handleNavigate(values),
-        resetForm({ values:"" }),
+        resetForm({ values: "" }),
         setErrors({})
-      ) }
+      )}
     >
-      {({handleSubmit, errors, values, handleChange,handleBlur, touched }) => (
+      {({ handleSubmit, errors, values, handleChange, handleBlur, touched }) => (
         <SafeAreaView style={styles.container} >
           <View>
-            <TextInput 
+            <TextInput
               ref={defaultSelect}
               style={styles.input}
               autoFocus
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
-              value = {values.email}
+              value={values.email}
               name="email"
               placeholder="Enter your username"
             />
 
             {errors.email && touched.email && <Text style={styles.error} >{errors.email}</Text>}
 
-            <TextInput 
+            <TextInput
               secureTextEntry={true}
-              style = {styles.input}
+              style={styles.input}
               onBlur={handleBlur("password")}
               name="password"
-              onChangeText = {handleChange("password")}
-              value = {values.password}
-              placeholder = "Enter your Password"
-              keyboardType = "name-phone-pad"
+              onChangeText={handleChange("password")}
+              value={values.password}
+              placeholder="Enter your Password"
+              keyboardType="name-phone-pad"
             />
 
-             {errors.password && touched.password && <Text style={styles.error} >{errors.password}</Text>}
+            {errors.password && touched.password && <Text style={styles.error} >{errors.password}</Text>}
 
           </View>
 
-          <Button 
-            onPress={ handleSubmit}
+          <Button
+            onPress={handleSubmit}
             title="Sign In"
           />
 
         </SafeAreaView>
-      )
-    }
-      
+      )}
     </Formik>
   );
 };
@@ -119,15 +117,15 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center', 
+    alignItems: 'center',
     justifyContent: 'center',
   },
 
   input: {
-    height:40,
-    width:200,
-    margin:12,
-    borderWidth:1,
+    height: 40,
+    width: 200,
+    margin: 12,
+    borderWidth: 1,
     padding: 10,
   },
 

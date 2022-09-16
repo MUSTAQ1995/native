@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { 
   View, 
   StyleSheet, 
@@ -10,23 +10,80 @@ import {
  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import CountryCode from './CountryCode';
+import { Formik } from 'formik';
+import * as yup from "yup";
 
+
+const SchemaValidation = yup.object().shape({
+  mobileNumber: yup
+    .string()
+    .required("Phone number is Required")
+    .min(9,"At least 9 digits should be there")
+    .max(11, "Maximum of 11 digits can be used")
+})
 
 const Login = ({ navigation }) => {
 
   //  states:
   const [phoneNumber, setPhoneNumber] = useState(null);
-  const [countryCallingCode, setCountryCallingCode] = useState("+966");
+  const [countryCallingCode, setCountryCallingCode] = useState("966");
+  const [isdisable, setIsDisable] = useState(true);
+  const [maxiMumLength, setMaxiMumLength] = useState(10);
+  const [errorMessage, setErrorMessage] = useState("Enter a Valid Number");
+  const [invalid, setInvalid] = useState(true);
   
+  const formikRef = useRef(null);
+  const defaultSelect = useRef(null);
+  
+  const initialData = {
+    mobileNumber:"",
+  }
   //  -------------------------------------------
   // handlers:
-  const getPhoneNumber = (e) => {
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      if (formikRef?.current) {
+        formikRef.current.values = initialData
+        formikRef.current.setErrors({});
+      }
+      setIsDisable(true);
+    })
+  }, [navigation, initialData]);
+
+  useEffect(() =>{
+    formikRef.current.setFieldValue("mobileNumber","");
+    formikRef.current.setFieldTouched("mobileNumber",false);
+    setIsDisable(true)
+  }, [countryCallingCode])
+
+  const handleValidate = (e) =>{
+    formikRef.current.setFieldValue("mobileNumber",e)
+
+    //Regular Expressions: for number matching,
+    let re1 = new RegExp(/^[0]{1}[5]{2}[0-9]{7}$/);
+    let re2 = new RegExp(/^[5]{2}[0-9]{7}$/);
+
+    let Saudi = new RegExp(re1.source +"|"+ re2.source);
+
+    setInvalid(!Saudi.test(e));
+    formikRef.current.setFieldTouched("mobileNumber", true)
+    if((countryCallingCode == "966") && (Saudi.test(e))){
+      re2.test(e)  && setMaxiMumLength(9) 
+      setIsDisable(false)
+    } else { 
+      setMaxiMumLength(10)
+      setIsDisable(true)}
+    if(countryCallingCode == "91"){
+      if((e.length >= 10) && (e[0] >= 6)){
+        setIsDisable(false)
+      } else {setIsDisable(true)}
+    }
     setPhoneNumber(e)
-    console.log(e,"Phonen number shgould be display")
   }
 
-  const gotoVerification =() => {
-    if(countryCallingCode &&phoneNumber){
+  const gotoVerification =(values) => {
+    if(countryCallingCode && values.mobileNumber ){
       navigation.navigate("verify", {
         code: countryCallingCode,
         number: phoneNumber,
@@ -35,14 +92,27 @@ const Login = ({ navigation }) => {
       Alert.alert("Enter Proper Number")
     }
   };
-console.log(countryCallingCode, "calling code");
-  // -----------------------------------------------------------
+  // ---------------------------------------------------------
+
+
   return (
+
     <ImageBackground
       source={require("../../../assets/lagoba_assets/bckgn.png")}
       style={styles.bckgn}
     >
-      <View style={styles.container} >
+      <Formik
+        innerRef={formikRef}
+        initialValues={initialData}
+        validationSchema={SchemaValidation}
+        onSubmit={(values, { resetForm, setErrors}) => (
+          gotoVerification(values),
+          resetForm({ values: ""}),
+          setErrors({})
+        )}
+      >
+        {({ handleSubmit, errors, values, handleChange, handleBlur, touched }) => (
+          <View style={styles.container} >
           <Image 
             style={styles.pic}
             source={require("../../../assets/lagoba_assets/Login.png")}
@@ -58,24 +128,33 @@ console.log(countryCallingCode, "calling code");
                   <CountryCode  setCallingCode={setCountryCallingCode}/>
                 </View>
                 <TextInput 
-                  style={styles.text_input}
-                  value={phoneNumber}
-                  placeholder="Enter Your mobile Number"
+                  // autoFocus
+                  name="mobileNumber"
+                  maxLength={maxiMumLength}
+                  ref={defaultSelect}
                   keyboardType="numeric"
-                  onChangeText={(e) =>getPhoneNumber(e)}
-                  autoFocus={false}
-                  maxLength={10}
+                  style={styles.text_input}
+                  value={values.mobileNumber}
+                  onBlur={handleBlur("mobileNumber")}
+                  placeholder="Enter Your Mobile Number"
+                  onChangeText={handleValidate}
                 />
+               
               </View> 
+              {  touched.mobileNumber && invalid && <Text style={styles.error} >{errorMessage}</Text>}
               <TouchableOpacity
-                  style={styles.button}
-                  onPress={()=> gotoVerification()}
+                  disabled={isdisable}
+                  style={isdisable ? styles.disable : styles.button}
+                  onPress={handleSubmit}
+                  activeOpacity={1}
                 >
                   <Text style={styles.next} >Next</Text>
                 </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
       </View>
+        )}
+      </Formik>
     </ImageBackground>
   )
 };
@@ -130,7 +209,7 @@ const styles= StyleSheet.create({
     color:"black",
   },
   button: {
-      marginTop: 16,
+      marginTop: 10,
       padding: 10,
       height: 54,
       alignItems: "center",
@@ -148,6 +227,21 @@ const styles= StyleSheet.create({
   county_code: {
     justifyContent:"center",
     width:"25%",
+  },
+  error: {
+    color: "red", 
+    textAlign:"center",
+    marginHorizontal: 16,
+    marginTop:5,
+  },
+  disable: {
+    marginTop: 10,
+      padding: 10,
+      height: 54,
+      alignItems: "center",
+      backgroundColor: "lightgray",
+      marginHorizontal: 16,
+      justifyContent:'center', 
   }
 })
 
