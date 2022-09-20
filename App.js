@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppRouter from './src/Navigations/AppRouter';
 // import {enableLatestRenderer} from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
+import { Provider as PaperProvider } from "react-native-paper";
 
 
 // enableLatestRenderer();
@@ -23,11 +24,13 @@ const App = () => {
     SplashScreen.hide()
   }, [])
   return (
-    <NavigationContainer>
-      <SafeAreaView style={{flex:1}}>
-        <AppRouter/>
-      </SafeAreaView>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <SafeAreaView style={{flex:1}}>
+          <AppRouter/>
+        </SafeAreaView>
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 

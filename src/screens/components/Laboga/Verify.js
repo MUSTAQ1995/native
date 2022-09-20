@@ -19,7 +19,7 @@ const Verify = ({ route, navigation}) => {
   }
 
   const [isdisable, setIsDisable] = useState(true);
-  
+
   // re-send OTP:
   const resendOTP = () => {
     console.log("resend OTp")
@@ -31,7 +31,7 @@ const Verify = ({ route, navigation}) => {
     } else(setIsDisable(true))
   }
   const submitOTP = () => {
-    navigation.navigate("stepper")
+    navigation.navigate("bottomtabs")
   };
 
   const handleEditNumber = () => {

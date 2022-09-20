@@ -16,8 +16,10 @@ import { Button } from "react-native";
 import Login from '../screens/components/Laboga/Login';
 import Verify from '../screens/components/Laboga/Verify';
 import Steppe from '../screens/components/Laboga/Steppe';
-import OtpInput from '../screens/components/Laboga/OtpInput';
-OtpInput
+import Dashboard from "../screens/components/Laboga/Dashboard";
+import BottomTabs from './BottomTabs';
+import AllProducts from '../screens/components/Laboga/AllProducts';
+
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -26,17 +28,24 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator 
-      initialRouteName='Login' 
+      initialRouteName='bottomtabs' 
       screenOptions={{
-        headerStyle:{
-          backgroundColor:"#f4511e",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
+        // headerStyle:{
+        //   backgroundColor:"#fff",
+        // },
+        headerTintColor: "#57504B",
+        // headerTitleStyle: {
+        //   fontWeight: "bold",
+        // },
       }}
     >
+      <Stack.Screen 
+        name="bottomtabs"
+        component={BottomTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
         <Stack.Screen 
           name="Home" 
           component={Home} 
@@ -51,6 +60,14 @@ export const Navigation = () => {
             title: "Our Contacts", 
             // headerShown: false
           }} 
+        />
+        <Stack.Screen 
+          name="allproducts"
+          component={AllProducts}
+          options={{
+            title:'Add Products',
+            // headerShown:false
+          }}
         />
         <Stack.Screen 
           name="Login" 
@@ -73,6 +90,14 @@ export const Navigation = () => {
             headerShown: false
           }}
         />
+        <Stack.Screen 
+          name="dashboard"
+          component={Dashboard}
+          options={{
+            headerShown:false
+          }}
+        />
+        
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="CustomValidation" component={CustomValidation} />
@@ -96,6 +121,8 @@ export const Navigation = () => {
                 title="Info"
                 color="#000"
               />
+
+              
             )
           }}
         />

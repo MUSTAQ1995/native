@@ -30,6 +30,8 @@ target 'MyApp' do
 
   pod 'react-native-geolocation-service', :path => '../node_modules/react-native-geolocation-service'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'MyAppTests' do
     inherit! :complete
     # Pods for testing
