@@ -217,13 +217,13 @@ const styles = StyleSheet.create({
     width:138,
     height:20,
     marginTop:10,
-    // marginLeft:16,
   },
   select_category_info:{
     fontSize:13,
     fontWeight:"bold",
     textAlign:"left",
-    color:"#57504B"
+    color:"#57504B",
+    fontFamily:"GreatVibes-Regular",
   },
   dropdown:{
     alignItems: 'center',

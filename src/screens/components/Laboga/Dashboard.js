@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 const Dashboard = () => {
   return (
     <View style={styles.container} >
-      <Text style={styles.textstyle} >Dashboard.....</Text>
+      <Text style={styles.textstyle} >Add Product page </Text>
     </View>
   )
 };

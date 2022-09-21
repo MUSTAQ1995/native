@@ -27,9 +27,20 @@ const Content = [
     "id":5,
     "name": "Logout",
   },
-
 ];
-const Profile = () => {
+
+
+const Profile = ({ navigation }) => {
+
+  const handleNavigate = (value) =>{
+    if(value.id == "2"){
+      navigation.navigate("shippingcharges") 
+    } else if(value.id == "1"){
+      navigation.navigate("addproducts") 
+    } else{
+      console.log(value.id, "route is not at created")
+    }
+    };
   return (
     <View style={styles.container} >
       <View style={styles.header} >
@@ -52,16 +63,19 @@ const Profile = () => {
         <View style={styles.list_item} >
           {Content.map((list, id)=>{
             return(
-              <View key={id} style={styles.listing_data} >
-                <Text style={styles.name} >{list?.name}</Text>
-                {/* <Text style={styles.name} >{">"}</Text> */}
-                <Image 
-                  source={require("../../../assets/lagoba_assets/right_arrow.png")}
-                  style={{
-                    width:7.4,
-                    height:12
-                  }}
-                />
+              <View 
+              
+                key={id} style={styles.listing_data} >
+                  <Text 
+                    onPress={()=> handleNavigate(list)}
+                  style={styles.name} >{list?.name}</Text>
+                  <Image 
+                    source={require("../../../assets/lagoba_assets/right_arrow.png")}
+                    style={{
+                      width:7.4,
+                      height:12
+                    }}
+                  />
               </View>
             )
           })}

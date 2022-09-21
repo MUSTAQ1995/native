@@ -1,7 +1,5 @@
 package com.myapp;
 
-include ':app'
- 
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -56,7 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
   //     protected List<ReactPackage> getPackages() {
   //     return Arrays.<ReactPackage>asList(
   //           new MainReactPackage(),
-            new VectorIconsPackage(),
+            // new VectorIconsPackage(),
 
   //           new RNGeocoderPackage()); 
   // }

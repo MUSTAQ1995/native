@@ -3,16 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/components/Laboga/Dashboard';
 import Profile from '../screens/components/Laboga/Profile';
 import Home from '../screens/components/Laboga/Home';
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = ({route}) => {
-  console.log(route, "route name")
   return (
     <Tab.Navigator
-    initialRouteName="profile"
+      initialRouteName="profile"
       // screenOptions={({route}) =>({
       //   tabBarIcon: ({ focused, color, size }) =>{
       //     let iconName;
