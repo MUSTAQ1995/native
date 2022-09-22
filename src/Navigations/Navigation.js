@@ -7,6 +7,7 @@ import BottomTabs from "../Navigations/BottomTabs";
 import Verify from '../screens/components/Laboga/Verify';
 import ShippingCharge from '../screens/components/Laboga/shippingcharges/ShippingCharge';
 import AddProducts from "../screens/components/Laboga/AllProducts";
+import EditProfile from '../screens/components/Laboga/Profile/EditProfile';
 
 //  --------------------------------------------------------------------
 
@@ -58,6 +59,17 @@ export const Navigation = () => {
         component={AddProducts}
         options={{
           title: "Add Products"
+        }}
+      />
+
+      <Stack.Screen 
+        name='editprofile'
+        component={EditProfile}
+        options={{
+          title:" Edit Profile",
+          headerStyle: {
+            backgroundColor: "#FAFAF8",
+          },
         }}
       />
 
