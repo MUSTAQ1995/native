@@ -45,7 +45,7 @@ const AllProduct = () => {
   };
   return (
     <ScrollView 
-    showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       style={styles.scrollview} >
       <View style={styles.container} >
         <View style={styles.steps} >
