@@ -81,10 +81,8 @@ const Verify = ({ route, navigation}) => {
                     height:50,
                   }}
                   inputContainerStyles={{
-
                     color:"black",
                     marginEnd:10,
-              
                   }}
                   inputStyles={{
                     textAlign:"center",
@@ -200,7 +198,7 @@ const styles= StyleSheet.create({
   },
 
   disable: {
-    marginTop: 10,
+    marginTop: 15,
     padding: 10,
     height: 54,
     alignItems: "center",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image } from "react-native";
 
 const Content = [
@@ -32,6 +32,8 @@ const Content = [
 
 const Profile = ({ navigation }) => {
 
+  const [phoneNumber, setPhoneNumber]= useState("966551236547")
+
   const handleNavigate = (value) => {
     if (value.id == "2") {
       navigation.navigate("shippingcharges")
@@ -43,14 +45,18 @@ const Profile = ({ navigation }) => {
   };
 
   const handleEditProfile = () => {
-    navigation.navigate("editprofile");
+    navigation.navigate("editprofile",{ 
+      phoneNumber : phoneNumber,
+      firstName: "Maya",
+      lastName:"D Suza"
+    });
   };
 
   return (
     <View style={styles.container} >
       <View style={styles.header} >
         <Image
-          source={require("../../../assets/lagoba_assets/verify.png")}
+          source={require("../../../assets/lagoba_assets/logo_white.png")}
           style={styles.logo}
         />
       </View>
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
   logo: {
     height: 30.05,
     width: 111.85,
-    backgroundColor: "#3B3B3B",
+    // backgroundColor: "#3B3B3B",
     marginLeft: 15
   },
   profile_details: {

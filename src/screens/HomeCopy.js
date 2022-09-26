@@ -62,7 +62,7 @@ const Home = ({ navigation }) => {
     return (
         <ImageBackground source={require("../assets/pngs/bg.jpg")} style={styles.container}>
             <ScrollView style={{ flex: 1 }}>
-             {/* <View style={styles.gallary} >
+             <View style={styles.gallary} >
                     <Button 
                         title='kamera'   
                         onPress={()=>cameraAcess()} 
@@ -73,7 +73,7 @@ const Home = ({ navigation }) => {
                         onPress={()=>gallaryAcess()} 
                         color="#000"
                     />
-                </View> */}
+                </View>
                 {/* {
                    imageDetails?.length > 0 && imageDetails?.map((imageData, ind) =>{
                     return ( 

@@ -8,7 +8,7 @@ import Verify from '../screens/components/Laboga/Verify';
 import ShippingCharge from '../screens/components/Laboga/shippingcharges/ShippingCharge';
 import AddProducts from "../screens/components/Laboga/AllProducts";
 import EditProfile from '../screens/components/Laboga/Profile/EditProfile';
-
+import Home from '../screens/HomeCopy';
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -71,6 +71,10 @@ export const Navigation = () => {
             backgroundColor: "#FAFAF8",
           },
         }}
+      />
+      <Stack.Screen 
+        name="copyhome"
+        component={Home}
       />
 
       {/* <Stack.Screen 
