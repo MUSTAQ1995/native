@@ -9,6 +9,8 @@ import ShippingCharge from '../screens/components/Laboga/shippingcharges/Shippin
 import AddProducts from "../screens/components/Laboga/AllProducts";
 import EditProfile from '../screens/components/Laboga/Profile/EditProfile';
 import Home from '../screens/HomeCopy';
+import Wallet from "../screens/components/Laboga/wallet/Mywallet";
+import AddProductDetails from '../screens/components/Laboga/ProductDetails/AddProductDetails';
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -72,9 +74,24 @@ export const Navigation = () => {
           },
         }}
       />
+
       <Stack.Screen 
-        name="copyhome"
-        component={Home}
+        name="wallet"
+        component={Wallet}
+        options={{
+          title:"My Wallet",
+          headerStyle: {
+            backgroundColor: "#FAFAF8",
+          },
+        }}
+      />
+
+      <Stack.Screen 
+        name="productdetails"
+        component={AddProductDetails}
+        options={{
+          title:"Add Products"
+        }}
       />
 
       {/* <Stack.Screen 

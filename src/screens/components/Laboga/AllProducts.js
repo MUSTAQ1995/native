@@ -9,19 +9,12 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { TextInput } from 'react-native-gesture-handler';
 
-const AllProduct = () => {
+const AddProduct = ({ navigation }) => {
   // states:
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(["apple"]);
   const [items, setItems] = useState([
-    // {label: 'Spain', value: 'spain'},
-    // {label: 'Madrid', value: 'madrid', parent: 'spain'},
-    // {label: 'Barcelona', value: 'barcelona', parent: 'spain'},
-    // {label: 'Italy', value: 'italy'},
-    // {label: 'Rome', value: 'rome', parent: 'italy'},
-
-    // {label: 'Finland', value: 'finland'}
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
     {label: 'Mango', value: 'mango'},
@@ -43,6 +36,10 @@ const AllProduct = () => {
   const handleEngTitle = (text) =>{
     console.log(text, "text")
   };
+
+  const handleProductDetails = () => {
+    navigation.navigate("productdetails")
+  }
   return (
     <ScrollView 
       showsVerticalScrollIndicator={false}
@@ -129,7 +126,9 @@ const AllProduct = () => {
                 placeholder="Enter Description"
               />
           </View>   
-          <TouchableOpacity style={styles.continue} >
+          <TouchableOpacity 
+            onPress={() => handleProductDetails()}
+            style={styles.continue} >
             <Text style={{
               color:"#57504B",
               fontWeight:"bold",
@@ -338,4 +337,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AllProduct;
+export default AddProduct;

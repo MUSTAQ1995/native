@@ -4,7 +4,7 @@ import Dashboard from '../screens/components/Laboga/Dashboard';
 import Profile from '../screens/components/Laboga/Profile';
 import Home from '../screens/components/Laboga/Home';
 import Icon from "react-native-vector-icons/Ionicons";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Tab = createBottomTabNavigator();

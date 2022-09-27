@@ -39,6 +39,8 @@ const Profile = ({ navigation }) => {
       navigation.navigate("shippingcharges")
     } else if (value.id == "1") {
       navigation.navigate("addproducts")
+    } else if(value.id == "0"){
+      navigation.navigate("wallet")
     } else {
       console.log(value.id, "route is not at created")
     }
