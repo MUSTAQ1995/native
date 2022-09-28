@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     backgroundColor:"#000",
     top:70,
-    right:155,
+    right:185,
   },
   first_name:{
     height:71,
@@ -212,7 +212,8 @@ const styles = StyleSheet.create({
     marginTop:6,
     borderWidth:1,
     borderColor:"#DEE4E8",
-    color:"#000"
+    color:"#000",
+    borderRadius:10,
   },
   first_input:{
     marginTop:6,

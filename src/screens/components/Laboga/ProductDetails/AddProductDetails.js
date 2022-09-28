@@ -64,21 +64,23 @@ const AddProductDetails = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollview: {
     backgroundColor: "#fff",
+    width:"100%",
   },
   container: {
     flex: 1,
     alignItems: "center",
     position: "relative",
-    marginHorizontal:16,
+    // marginHorizontal:16,
+    paddingHorizontal:16,
+    width:"100%",
   },
   steps: {
     marginTop: 27,
     height: 45,
-    width: 309,
-    display: "flex",
+    width: "80%",
     flexDirection: "row",
     justifyContent: "space-between",
-    position: "relative"
+    // position: "relative",
   },
   stepOne: {
     alignItems: "center"
@@ -98,13 +100,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "lightgray",
     height: 1,
-    width: 229,
+    width: "78%",
     marginTop: 10,
     marginHorizontal: 34,
     position: "absolute"
   },
   stepTwo: {
-    alignItems: "center"
+    alignItems: "center",
+    // marginRight:18
   },
   two: {
     width: 24,
@@ -114,6 +117,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     paddingLeft: 3,
   },
+  product_available:{
+    width:"100%"
+  },
   multi_country: {
     marginTop: 28,
     width:360,
@@ -122,8 +128,7 @@ const styles = StyleSheet.create({
     color: "#57504B",
   },
   colors:{
-    // borderWidth:1,
-    // borderColor:"#000",
+    width:"100%"
   },
   submit_add:{
     backgroundColor:"#F2E7D3",

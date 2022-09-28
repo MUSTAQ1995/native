@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderBottomWidth: 0,
     fontSize: 14,
+    borderRadius:10,
     fontWeight: "bold",
     width: 156
   },
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // marginTop: 370
     position:"absolute",
-    bottom:51,
+    bottom:30,
     left:16,
     right:16,
     width:"100%"

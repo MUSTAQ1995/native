@@ -94,6 +94,7 @@ const WithoutColors = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // position:"relative"
   },
   upload_photos: {
     marginTop: 12,
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     borderColor: "#DEE4E8",
     alignItems: "center",
     justifyContent: "center",
-    width: 360
+    // width: 360
   },
   upload_icon: {
     height: 48,
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
     borderColor: "#DEE4E8",
     borderWidth: 1,
     backgroundColor: "#fff",
+    borderRadius:10,
     fontSize: 14,
     fontWeight: "bold",
     width: 156
@@ -162,11 +164,11 @@ const styles = StyleSheet.create({
     backgroundColor:"#F2E7D3",
     height:56,
     width:"100%",
-    marginTop:30,
+    marginTop:90,
     // position:"absolute",
-    // bottom:20,
+    // bottom:0,
     alignItems:"center",
-    justifyContent:"center"
+    justifyContent:"center",
   },
   submit_text:{
     color:"#57504B",

@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     height: 4,
     backgroundColor: "#EFEFEF",
-    width: 400,
-    marginLeft: -20
+    width: "100%",
+    // marginLeft: -20
   }
 })
 export default CustomDivider

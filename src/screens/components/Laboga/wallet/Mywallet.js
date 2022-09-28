@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   total_ammount:{
     height:174,
-    width:360,
+    // width:360,
  
     borderWidth:1,
     borderColor:"#DEE4E8",

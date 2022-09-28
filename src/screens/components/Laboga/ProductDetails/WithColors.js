@@ -41,7 +41,6 @@ const WithColors = () => {
 
   return (
     <View style={styles.container} >
-      <CustomDivider />
       <View style={styles.body} >
         <Text style={styles.select_color} >
           Select Color
@@ -64,7 +63,10 @@ const WithColors = () => {
             badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
           />
         </View>
-        <View style={styles.upload_photos} >
+        <View 
+          
+        style={styles.upload_photos} >
+          <TouchableOpacity onPress={() => getGalleryImage()} >
           <Image
             source={require("../../../../assets/lagoba_assets/upload-icon.png")}
             style={styles.upload_icon}
@@ -72,6 +74,7 @@ const WithColors = () => {
           <Text style={styles.upload_photo_text} >
             Upload Photo
           </Text>
+          </TouchableOpacity>
         </View>
         <Text style={styles.add_photos} >Add Photos</Text>
         <ScrollView
@@ -148,18 +151,18 @@ const WithColors = () => {
       </View>
       <TouchableOpacity style={styles.submit_add} >
           <Text style={styles.submit_text} >SUBMIT AND ADD PRODUCT</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 252,
-    flex: 1
+    flex: 1,
+    // paddingHorizontal:16
   },
-  body: {
-
+  body:{
+    width:"100%"
   },
   select_color: {
     marginTop: 13,
@@ -167,11 +170,11 @@ const styles = StyleSheet.create({
     height: 16,
     fontSize: 14,
     fontWeight: "700",
-    color: "#57504B"
+    color: "#57504B",
   },
   dropdown: {
     marginTop: 16,
-    width: 380,
+    // width: 380,
   },
   upload_photos: {
     marginTop: 12,
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
     borderColor: "#DEE4E8",
     borderWidth: 1,
     backgroundColor: "#fff",
-
+    borderRadius:10,
     fontSize: 14,
     fontWeight: "bold",
     width: 156
@@ -269,6 +272,7 @@ const styles = StyleSheet.create({
     borderColor: "#DEE4E8",
     borderWidth: 1,
     backgroundColor: "#fff",
+    borderRadius:10,
     fontSize: 14,
     fontWeight: "bold",
     width: 156

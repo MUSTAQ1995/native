@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Dashboard from '../screens/components/Laboga/Dashboard';
-import Profile from '../screens/components/Laboga/Profile';
 import Home from '../screens/components/Laboga/Home';
+import Profile from '../screens/components/Laboga/Profile';
+import Dashboard from '../screens/components/Laboga/Dashboard';
 import Icon from "react-native-vector-icons/Ionicons";
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,19 +33,19 @@ const BottomTabs = ({route}) => {
         name="home"
         component={Home}
         options={{
-          headerShown:false,
           tabBarLabel:"Home",
-        }}
-        
-      />
-      <Tab.Screen
-        name="dashboard"
-        component={Dashboard}
-        options={{
-          tabBarLabel:"Dashboarfd",
           headerShown:false
         }}
       />
+       <Tab.Screen
+        name="dashboard"
+        component={Dashboard}
+        options={{
+          headerShown:false,
+          tabBarLabel:"Dashboarfd",
+        }}
+      />
+     
       <Tab.Screen
         name="profile"
         component={Profile}

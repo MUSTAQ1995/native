@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 5,
+    borderRadius:10,
   },
 
   not_selected_country: {
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
     borderColor: "#DEE4E8",
     borderWidth: 1,
     marginHorizontal: 5,
+    borderRadius:10,
   },
   country_name: {
     fontSize: 14,
@@ -163,7 +165,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 14,
     fontWeight: "bold",
-    width: 156
+    width: 156,
+    borderRadius:10,
   },
   horizontal_scroll: {
     marginTop: 11,
