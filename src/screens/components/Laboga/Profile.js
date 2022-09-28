@@ -80,7 +80,6 @@ const Profile = ({ navigation }) => {
           {Content.map((list, id) => {
             return (
               <View
-
                 key={id} style={styles.listing_data} >
                 <Text
                   onPress={() => handleNavigate(list)}
@@ -154,7 +153,8 @@ const styles = StyleSheet.create({
   },
   list_item: {
     marginLeft: 15,
-    width: 360,
+    // width: 360,
+    // width:"100%",
     height: 401,
   },
   listing_data: {
@@ -170,9 +170,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   translate: {
+    marginTop:20,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+
   },
   trans_image: {
     height: 31,

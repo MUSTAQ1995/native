@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import { RadioButton } from 'react-native-paper';
+import CustomDivider from '../Reusable/CustomDivider';
+import WithColors from './WithColors';
+import WithoutColors from './WithoutColors';
+
+
 const AddProductDetails = ({ navigation }) => {
-  const [value, setValue] = useState("No");
+  const [value, setValue] = useState("Yes");
+  const [ colors, setColors ] = useState(true)
 
   const handleChange = (value) => {
     setValue(value);
 
-    // {value === "Yes" ?  setMultiCountry(true) :  setMultiCountry(false) }
+    {value === "Yes" ?  setColors(true) :  setColors(false) }
   };
 
   return (
@@ -28,7 +34,7 @@ const AddProductDetails = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.product_available} >
-          <Text style={styles.multi_country}>Do You Ship In Multiple Countires?</Text>
+          <Text style={styles.multi_country}>Is This Product Available In Different Colours??</Text>
           <RadioButton.Group onValueChange={newValue => handleChange(newValue)} value={value} >
             <View style={{ flexDirection: "row", marginTop: 15 }}  >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -42,6 +48,13 @@ const AddProductDetails = ({ navigation }) => {
             </View>
           </RadioButton.Group>
         </View>
+        <CustomDivider/>
+        <View style={styles.colors} >
+          { colors ? <WithColors /> : <WithoutColors/>}
+        </View>
+        {/* <TouchableOpacity style={styles.submit_add} >
+          <Text>SUBMIT AND ADD PRODUCT</Text>
+        </TouchableOpacity> */}
       </View>
     </ScrollView>
 
@@ -55,7 +68,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    position: "relative"
+    position: "relative",
+    marginHorizontal:16,
   },
   steps: {
     marginTop: 27,
@@ -77,6 +91,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     paddingLeft: 3,
   },
+  details:{
+    fontWeight:"700"
+  },
   line: {
     borderWidth: 1,
     borderColor: "lightgray",
@@ -97,6 +114,24 @@ const styles = StyleSheet.create({
     color: "#fff",
     paddingLeft: 3,
   },
+  multi_country: {
+    marginTop: 28,
+    width:360,
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#57504B",
+  },
+  colors:{
+    // borderWidth:1,
+    // borderColor:"#000",
+  },
+  submit_add:{
+    backgroundColor:"#F2E7D3",
+    height:56,
+    width:"100%",
+    position:"absolute",
+    bottom:27,
+  }
 })
 
 export default AddProductDetails

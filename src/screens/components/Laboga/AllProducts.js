@@ -11,7 +11,6 @@ import { TextInput } from 'react-native-gesture-handler';
 
 const AddProduct = ({ navigation }) => {
   // states:
-  const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(["apple"]);
   const [items, setItems] = useState([
@@ -25,13 +24,6 @@ const AddProduct = ({ navigation }) => {
 
   const [titleEng, setTitleEng] = useState("");
   const [titleArb, setTitleArb] = useState("");
-
-  const [openTwo, setOpenTwo] = useState(false);
-  const [valueTwo, setValueTwo] = useState(null);
-  const [itemsTwo, setItemsTwo] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
 
   const handleEngTitle = (text) =>{
     console.log(text, "text")
