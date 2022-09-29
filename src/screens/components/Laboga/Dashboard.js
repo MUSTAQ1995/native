@@ -90,6 +90,7 @@ const Dashboard = () => {
                 <Text style={styles.quantity} >QTY. 1</Text>
               </View>
               <Text style={styles.status}>Received</Text>
+              <Text style={styles.delivery}>Delivered</Text>
             </View>
           </View>
         </View>)}
@@ -241,6 +242,11 @@ const styles = StyleSheet.create({
     marginTop:12,
     color:"#CCCCCC",
     fontWeight:"bold"
+  },
+  delivery:{
+    color:"green",
+    fontWeight:"bold",
+    fontSize:10,
   }
 })
 
