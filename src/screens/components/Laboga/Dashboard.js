@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  Image, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -30,10 +30,12 @@ const topBarDetails = [
   },
 ];
 
-const ImageCount=8;
-const Dashboard = () => {
+const ImageCount = 8;
+const Dashboard = ({navigation}) => {
+  const gotoAllorders = () => {
+    navigation.navigate("allorders")
+  }
   return (
-  
     <View style={styles.container} >
       <Image
         source={require("../../../assets/lagoba_assets/logo_white.png")}
@@ -47,7 +49,7 @@ const Dashboard = () => {
               source={require("../../../assets/lagoba_assets/calender_icon.png")}
               style={{ height: 11, width: 11 }}
             />
-            <Popup/>
+            <Popup />
             <Icon name="chevron-down-outline" size={12} color="black" />
           </TouchableOpacity>
         </View>
@@ -64,46 +66,47 @@ const Dashboard = () => {
           }
         </View>
       </View>
+
       <View style={styles.all_orders} >
         <Text style={styles.orders_text} >Orders</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>gotoAllorders()}>
           <Text style={styles.view_all} >View all</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView 
+      <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scroll_view} >
-      {
-        Array(8).fill().map((data, i)=>  
-       {
-        return( <View key={i} style={styles.single_order} >
-          <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
-          <View style={styles.product_details} >
-            <Image 
-              source={require("../../../assets/lagoba_assets/bckgn.png")}
-              style={styles.product_image}
-            />
-            <View style={styles.name_price} >
-              <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
-              <View style={styles.price_quantity} >
-                <Text style={styles.price} >SAR 500</Text>
-                <Text style={styles.quantity} >QTY. 1</Text>
+        {
+          Array(8).fill().map((data, i) => {
+            return (<View key={i} style={styles.single_order} >
+              <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
+              <View style={styles.product_details} >
+                <Image
+                  source={require("../../../assets/lagoba_assets/bckgn.png")}
+                  style={styles.product_image}
+                />
+                <View style={styles.name_price} >
+                  <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
+                  <View style={styles.price_quantity} >
+                    <Text style={styles.price} >SAR 500</Text>
+                    <Text style={styles.quantity} >QTY. 1</Text>
+                  </View>
+                  <Text style={styles.status}>Received</Text>
+                  <Text style={styles.delivery}>Delivered</Text>
+                </View>
               </View>
-              <Text style={styles.status}>Received</Text>
-              <Text style={styles.delivery}>Delivered</Text>
-            </View>
-          </View>
-        </View>)}
-        )
-      }
-        </ScrollView>
+            </View>)
+          }
+          )
+        }
+      </ScrollView>
     </View>
-  
+
   )
 };
 
 const styles = StyleSheet.create({
-  scroll_view:{
+  scroll_view: {
     flex: 1,
   },
   container: {
@@ -192,61 +195,61 @@ const styles = StyleSheet.create({
     marginTop: 18,
     height: 110
   },
-  order_id_text:{
-    height:13,
-    fontSize:12,
-    color:"#000",
-    fontWeight:"bold"
+  order_id_text: {
+    height: 13,
+    fontSize: 12,
+    color: "#000",
+    fontWeight: "bold"
   },
-  product_details:{
-    height:88,
-    marginTop:9,
-    flexDirection:"row"
+  product_details: {
+    height: 88,
+    marginTop: 9,
+    flexDirection: "row"
   },
-  product_image:{
-    height:88,
-    flex:0.2,
+  product_image: {
+    height: 88,
+    flex: 0.2,
   },
-  name_price:{
-    flex:0.8,
-    marginLeft:15
+  name_price: {
+    flex: 0.8,
+    marginLeft: 15
   },
-  product_name:{
-    height:13,
-    fontSize:12,
-    fontWeight:"bold",
-    color:"#57504B",
+  product_name: {
+    height: 13,
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#57504B",
     // lineHeight:13
   },
-  price_quantity:{
-    marginTop:10,
+  price_quantity: {
+    marginTop: 10,
     flexDirection: "row",
-    width:"30%",
-    height:14,
-    justifyContent:"space-between",
+    width: "30%",
+    height: 14,
+    justifyContent: "space-between",
   },
-  price:{
+  price: {
     // fontFamily:"s"
-    fontSize:12,
-    fontWeight:"bold",
-    color:"#57504B"
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#57504B"
   },
-  quantity:{
-    fontSize:12,
-    fontWeight:"bold",
-    color:"#57504B"
+  quantity: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#57504B"
   },
-  status:{
-    height:11,
-    fontSize:10,
-    marginTop:12,
-    color:"#CCCCCC",
-    fontWeight:"bold"
+  status: {
+    height: 11,
+    fontSize: 10,
+    marginTop: 12,
+    color: "#CCCCCC",
+    fontWeight: "bold"
   },
-  delivery:{
-    color:"green",
-    fontWeight:"bold",
-    fontSize:10,
+  delivery: {
+    color: "green",
+    fontWeight: "bold",
+    fontSize: 10,
   }
 })
 

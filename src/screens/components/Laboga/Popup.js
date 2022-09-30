@@ -13,7 +13,7 @@ const { SlideInMenu } = renderers;
 const Popup = () => {
   return (
     <Menu onSelect={value => alert(`Selected number: ${value}`)} >
-      <MenuTrigger text='Select Option' />
+      <MenuTrigger text='This Month' />
       <MenuOptions>
         <MenuOption value={1} text="This Month" />
         <MenuOption value={2} text="This week" />

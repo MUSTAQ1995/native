@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import {TouchableOpacity, Image}  from "react-native"
 // Lagoba:
 import Login from '../screens/components/Laboga/Login';
 import BottomTabs from "../Navigations/BottomTabs";
@@ -11,6 +11,12 @@ import EditProfile from '../screens/components/Laboga/Profile/EditProfile';
 import Home from '../screens/HomeCopy';
 import Wallet from "../screens/components/Laboga/wallet/Mywallet";
 import AddProductDetails from '../screens/components/Laboga/ProductDetails/AddProductDetails';
+import AllOrders from '../screens/components/Laboga/Orders/AllOrders';
+import Popup from '../screens/components/Laboga/Popup';
+import OrderDetails from "../screens/components/Laboga/Orders/OrderDetails"
+
+// ui-components:
+import Icon from "react-native-vector-icons/Ionicons";
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -19,7 +25,7 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName='bottomtabs'
+      initialRouteName='orderdetails'
       screenOptions={{
         headerTintColor: "#57504B",
       }}
@@ -64,36 +70,70 @@ export const Navigation = () => {
         }}
       />
 
-      <Stack.Screen 
+      <Stack.Screen
         name='editprofile'
         component={EditProfile}
         options={{
-          title:" Edit Profile",
+          title: " Edit Profile",
           headerStyle: {
             backgroundColor: "#FAFAF8",
           },
         }}
       />
 
-      <Stack.Screen 
+      <Stack.Screen
         name="wallet"
         component={Wallet}
         options={{
-          title:"My Wallet",
+          title: "My Wallet",
           headerStyle: {
             backgroundColor: "#FAFAF8",
           },
         }}
       />
 
-      <Stack.Screen 
+      <Stack.Screen
         name="productdetails"
         component={AddProductDetails}
         options={{
-          title:"Add Products"
+          title: "Add Products"
         }}
       />
 
+      <Stack.Screen
+        name="allorders"
+        component={AllOrders}
+        options={{
+          title: "Orders",
+          headerStyle: {
+            borderBottomWidth: 0,
+            borderBottomColor:"red"
+          },
+          headerRight: () => (
+            <TouchableOpacity style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
+              marginRight:16,
+              width:"50%"
+            }} >
+              <Image
+                source={require("../assets/lagoba_assets/calender_icon.png")}
+                style={{ height: 11, width: 11 }}
+              />
+              <Popup />
+              <Icon name="chevron-down-outline" size={12} color="black" />
+            </TouchableOpacity>
+          )
+        }}
+      />
+      <Stack.Screen
+        name='orderdetails'
+        component={OrderDetails}
+        options={{
+          title:"Orders"
+        }}
+      />
       {/* <Stack.Screen 
           name="Header" 
           component={Header} 
