@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet,Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet,Image, TouchableOpacity } from 'react-native';
 // import { Card } from "react-native-p"
 
 const DATA = [
@@ -30,6 +30,12 @@ const DATA = [
 ];
 
 const Abaya = () => {
+
+
+  const gotoSingleProduct = ({ navigation }) => {
+    // navigation.navigate("singleproduct")
+    console.log("Dingel product details")
+  };
   return (
     <View style={styles.container}>
       <FlatList 
@@ -40,7 +46,11 @@ const Abaya = () => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => {
           return(
-            <View style={styles.item} >
+            <TouchableOpacity 
+              style={styles.item} 
+              onPress={() => gotoSingleProduct()}
+            >
+            <View >
               <Image 
                 source={require("../../../../assets/lagoba_assets/bckgn.png")}
                 style={styles.pic}
@@ -49,6 +59,7 @@ const Abaya = () => {
               <Text style={styles.category} >Printed Solid Border Blue Hijab</Text>
               <Text style={styles.price}>$745</Text>
             </View>
+            </TouchableOpacity>
           )
         }}
 

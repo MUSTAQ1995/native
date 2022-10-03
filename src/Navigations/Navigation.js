@@ -15,6 +15,7 @@ import AllOrders from '../screens/components/Laboga/Orders/AllOrders';
 import Popup from '../screens/components/Laboga/Popup';
 import OrderDetails from "../screens/components/Laboga/Orders/OrderDetails";
 import MyProduct from '../screens/components/Laboga/ProductDetails/MyProduct';
+import SingleProductDetails from '../screens/components/Laboga/ProductDetails/SingleProductDetails';
 
 // ui-components:
 import Icon from "react-native-vector-icons/Ionicons";
@@ -26,7 +27,7 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName='orderdetails'
+      initialRouteName='singleproduct'
       screenOptions={{
         headerTintColor: "#57504B",
       }}
@@ -141,6 +142,13 @@ export const Navigation = () => {
          options={{
            title:"My Products"
          }}
+      />
+      <Stack.Screen 
+        name="singleproduct"
+        component={SingleProductDetails}
+        options={{
+          title:"Product Details"
+        }}
       />
       {/* <Stack.Screen 
           name="Header" 
