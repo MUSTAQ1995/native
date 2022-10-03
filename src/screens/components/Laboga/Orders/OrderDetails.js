@@ -12,10 +12,10 @@ import {
 import Steppe from "../Steppe";
 import StatusModal from './StatusModal';
 
-const OrderDetails = () => {
+const OrderDetails = ({ navigation }) => {
   const [quantity, setQuantity] = useState(1)
   const [modalVisible, setModalVisible] = useState(false);
-
+  
   const increase = () => {
     setQuantity(quantity + 1)
   };
@@ -35,7 +35,6 @@ const OrderDetails = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.container} >
-
           <View style={styles.stepper} >
             <Steppe />
           </View>
@@ -59,7 +58,8 @@ const OrderDetails = () => {
           {
             Array(4).fill().map((data, ind) => {
               return (
-                <View key={ind} style={styles.product_details} >
+                <TouchableOpacity  key={ind} onPress={() => navigation.navigate("myproduct")} >
+                <View style={styles.product_details} >
                   <Image
                     source={require("../../../../assets/lagoba_assets/bckgn.png")}
                     style={styles.product_image}
@@ -98,6 +98,7 @@ const OrderDetails = () => {
                     </View>
                   </View>
                 </View>
+                </TouchableOpacity>
               )
             })
           }
@@ -152,12 +153,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: 288
+    height: 288,
+    marginTop:300,
   },
   custom_divider: {
     marginTop: 8,
     height: 4,
-    backgroundColor: "lightgray"
+    backgroundColor: "lightgray",
+    borderTopRightRadius:30,
+    borderTopLeftRadius:30
   },
   custom_address: {
     height: 100,
@@ -301,7 +305,8 @@ const styles = StyleSheet.create({
     height: 13,
     fontSize: 12,
     letterSpacing: 0.96,
-    color: "#57504B"
+    color: "#57504B",
+    fontWeight:"bold"
   }
 });
 export default OrderDetails
