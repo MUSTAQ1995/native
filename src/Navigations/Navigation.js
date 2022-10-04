@@ -19,6 +19,7 @@ import SingleProductDetails from '../screens/components/Laboga/ProductDetails/Si
 
 // ui-components:
 import Icon from "react-native-vector-icons/Ionicons";
+import SignUp from '../screens/components/Laboga/Profile/SignUp';
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -27,7 +28,7 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName='singleproduct'
+      initialRouteName='Login'
       screenOptions={{
         headerTintColor: "#57504B",
       }}
@@ -148,6 +149,13 @@ export const Navigation = () => {
         component={SingleProductDetails}
         options={{
           title:"Product Details"
+        }}
+      />
+      <Stack.Screen 
+        name="signup"
+        component={SignUp}
+        options={{
+          title: "Sign Up"
         }}
       />
       {/* <Stack.Screen 

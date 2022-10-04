@@ -9,9 +9,9 @@ import {
 
 } from 'react-native'
 
-const NewOrders = () => {
+const NewOrders = ({navigation}) => {
 
-  const gotoOrderDetails = ({ navigation }) => {
+  const gotoOrderDetails = () => {
     navigation.navigate("orderdetails")
   }
   

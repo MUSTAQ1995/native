@@ -76,7 +76,7 @@ const WithoutColors = () => {
         color:"#57504B",fontSize:14,fontWeight:"600"
       }}>Please Enter The Price</Text>
       <View style={styles.add_price} >
-          <Text style={styles.add_price_text} >ADD PRICE</Text>
+          <Text style={styles.add_price_text} >PRICE</Text>
           <TextInput
             placeholder="Enter Price"
             style={styles.input}

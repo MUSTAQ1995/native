@@ -12,6 +12,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import CountryCode from './CountryCode';
 import { Formik } from 'formik';
 import * as yup from "yup";
+import { checkMobile } from '../../../redux/actions/signup.action';
 
 
 const SchemaValidation = yup.object().shape({
@@ -87,6 +88,8 @@ const Login = ({ navigation, route }) => {
 
   const gotoVerification =(values) => {
     if(countryCallingCode && values.mobileNumber ){
+      checkMobile(values.mobileNumber)
+      console.log(values.mobileNumber, "mobile number")
       navigation.navigate("verify", {
         code: countryCallingCode,
         number: phoneNumber,

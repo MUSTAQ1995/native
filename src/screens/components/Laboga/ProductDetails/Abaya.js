@@ -29,12 +29,12 @@ const DATA = [
   },
 ];
 
-const Abaya = () => {
+const Abaya = ({ navigation }) => {
 
 
-  const gotoSingleProduct = ({ navigation }) => {
-    // navigation.navigate("singleproduct")
-    console.log("Dingel product details")
+  const gotoSingleProduct = () => {
+    navigation.navigate("singleproduct")
+    // console.log("Dingel product details")
   };
   return (
     <View style={styles.container}>

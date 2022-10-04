@@ -76,9 +76,10 @@ const Dashboard = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scroll_view} >
-        {
+      {
           Array(8).fill().map((data, i) => {
             return (<View key={i} style={styles.single_order} >
+              <TouchableOpacity onPress={()=>gotoAllorders()} >
               <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
               <View style={styles.product_details} >
                 <Image
@@ -95,7 +96,10 @@ const Dashboard = ({navigation}) => {
                   <Text style={styles.delivery}>Delivered</Text>
                 </View>
               </View>
-            </View>)
+              </TouchableOpacity>
+            </View>
+           
+            )
           }
           )
         }
