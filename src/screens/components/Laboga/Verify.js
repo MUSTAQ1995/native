@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { 
   View, 
   Text,
@@ -9,6 +10,7 @@ import {
   ImageBackground
 } from 'react-native';
 import OtpInputs from 'react-native-otp-inputs';
+import { checkMobile, verifyOtp } from '../../../redux/actions/signup.action';
 
 const Verify = ({ route, navigation}) => {
   const { code, number} = route.params;
@@ -17,21 +19,48 @@ const Verify = ({ route, navigation}) => {
     countryCode: code,
     mobileNumber:number,
   }
-
   const [isdisable, setIsDisable] = useState(true);
+  const [mobieStatus, setMobileStatus] = useState(false)
+
+  // useEffect(() =>{
+  //   checkMobile(number)
+  //   .then((res) =>{
+  //     console.log(res?.response?.status, "for mobile check")
+  //   }).catch((error)=>{
+  //     console.log(error)
+  //   })
+  // }, [number])
 
   // re-send OTP:
   const resendOTP = () => {
     console.log("resend OTp")
   };
 
+  const verifyOTP = (otp) =>{
+    verifyOtp({
+      "country_code": code,
+      "mobile_number": number,
+      "otp": otp
+    })
+    .then((res)=> {
+      console.log(res, "res")
+    })
+  };
+
   const handleOTP = code => {
     if(code.length >= 6){
       setIsDisable(false)
+      verifyOTP(code)
     } else(setIsDisable(true))
   }
+
+
   const submitOTP = () => {
-    navigation.navigate("bottomtabs")
+    check_mobile(number)
+    .then((res)=>{
+      
+    })
+    // navigation.navigate(mobieStatus ? "bottomtabs" : "signup")
   };
 
   const handleEditNumber = () => {

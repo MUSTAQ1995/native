@@ -16,10 +16,25 @@ export const registration = async (data) => {
 export const checkMobile =  async (data) => {
   try {
     const response = await axiosInstance.post("check_mobile", data)
-    console.log(response.data.response)
-
+    return response?.data
   } catch(error){
-    console.log(error)
     throw(error)
+  }
+}
+
+export const getOtp = async (data) => {
+  try {
+    const response = await axiosInstance.post("send_otp.php", data)
+  } catch(error){
+    throw(error)
+  }
+};
+
+export const verifyOtp = async (data) =>{
+  try{
+    const response = await axiosInstance.post("verify_otp", data)
+    return response?.data
+  } catch(errors) {
+    throw(errors)
   }
 }
