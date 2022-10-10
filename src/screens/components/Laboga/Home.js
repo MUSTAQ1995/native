@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity,Image, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { requestUserPermission, NotificationListner } from "../../../utils/pushnotification_helper"
 
 const Home = ({ navigation }) => {
 
@@ -21,7 +22,9 @@ const Home = ({ navigation }) => {
   }
 
   useEffect(() =>{
-    getToken()
+    getToken();
+    requestUserPermission();
+    NotificationListner();
   }, [])
 
   const clear_storage = async () => {
