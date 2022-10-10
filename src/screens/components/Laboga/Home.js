@@ -1,5 +1,6 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity,Image, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
 
@@ -7,14 +8,44 @@ const Home = ({ navigation }) => {
     navigation.navigate("addproducts");
     console.log("Navigate ti the add product page")
   };
+
+  const getToken = async () =>{
+    try {
+      const value = await AsyncStorage.getItem("token")
+      if(value !== null) {
+        console.log(value, "token from the store")
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() =>{
+    getToken()
+  }, [])
+
+  const clear_storage = async () => {
+    try{
+      await AsyncStorage.clear()
+      console.log(AsyncStorage.getItem("token"))
+    } catch(error) {
+      Alert.alert("Error:", error.message)
+    }
+  }
+
   return (
     <View style={styles.container} >
+      {/* <Button 
+        title='Clear storage'
+        onPress={() => clear_storage()}
+      /> */}
       <View style={styles.header} >
         <Image
           source={require("../../../assets/lagoba_assets/logo_white.png")}
           style={styles.logo}
         />
       </View>
+
       <View style={styles.body} >
         <Image 
           style={styles.cloth_hanger}

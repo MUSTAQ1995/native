@@ -17,6 +17,7 @@ import OrderDetails from "../screens/components/Laboga/Orders/OrderDetails";
 import MyProduct from '../screens/components/Laboga/ProductDetails/MyProduct';
 import SingleProductDetails from '../screens/components/Laboga/ProductDetails/SingleProductDetails';
 
+
 // ui-components:
 import Icon from "react-native-vector-icons/Ionicons";
 import SignUp from '../screens/components/Laboga/Profile/SignUp';
@@ -157,6 +158,10 @@ export const Navigation = () => {
         options={{
           title: "Sign Up"
         }}
+      />
+      <Stack.Screen 
+        name="home"
+        component={Home}
       />
       {/* <Stack.Screen 
           name="Header" 

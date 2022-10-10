@@ -87,19 +87,23 @@ const Login = ({ navigation, route }) => {
   }
 
   const gotoVerification =(values) => {
-    if(countryCallingCode && values.mobileNumber ){
+    // if(countryCallingCode && values.mobileNumber ){
 
-      getOtp({
-        "country_code":countryCallingCode,
-        "mobile_number":values.mobileNumber
-      })
-      navigation.navigate("verify", {
-        code: countryCallingCode,
-        number: phoneNumber,
-      });
-    } else {
-      Alert.alert("Enter Proper Number")
-    }
+    //   getOtp({
+    //     "country_code":countryCallingCode,
+    //     "mobile_number":values.mobileNumber
+    //   })
+    //   navigation.navigate("verify", {
+    //     code: countryCallingCode,
+    //     number: phoneNumber,
+    //   });
+    // } else {
+    //   Alert.alert("Enter Proper Number")
+    // }
+    navigation.navigate("verify", {
+      code: countryCallingCode,
+      number: phoneNumber,
+    });
   };
   // ---------------------------------------------------------
 

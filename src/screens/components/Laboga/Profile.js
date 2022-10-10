@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { get_profile, log_out } from '../../../redux/actions/signup.action';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getToken } from '../../../services/config';
+
 
 const Content = [
 
@@ -32,25 +37,53 @@ const Content = [
 
 const Profile = ({ navigation }) => {
 
-  const [phoneNumber, setPhoneNumber]= useState("966551236547")
+  const [userDetails, setUserDetails] = useState();
+
+  useFocusEffect(
+    useCallback(() => {
+      get_profile()
+        .then((res) => {
+          setUserDetails(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }, [])
+  )
+
+  const handleLogout = async () => {
+    const token = await getToken();
+    token && log_out({"token": token })
+      .then((res) => {
+        if (res.data.status === true) {
+          AsyncStorage.clear();
+          navigation.navigate("Login")
+          Alert.alert(res.data.response.message)
+        }
+      })
+      .catch(e=>{
+        console.log(e, "logout failed")
+      })
+  }
 
   const handleNavigate = (value) => {
     if (value.id == "2") {
       navigation.navigate("shippingcharges")
     } else if (value.id == "1") {
       navigation.navigate("addproducts")
-    } else if(value.id == "0"){
+    } else if (value.id == "0") {
       navigation.navigate("wallet")
-    } else {
+    } else if (value.id == "5") {
+      handleLogout()
+    }
+    else {
       console.log(value.id, "route is not at created")
     }
   };
 
   const handleEditProfile = () => {
-    navigation.navigate("editprofile",{ 
-      phoneNumber : phoneNumber,
-      firstName: "Maya",
-      lastName:"D Suza"
+    navigation.navigate("editprofile", {
+      userDetails: userDetails
     });
   };
 
@@ -62,11 +95,11 @@ const Profile = ({ navigation }) => {
           style={styles.logo}
         />
       </View>
-      <View style={styles.profile_details} >
+      {userDetails && <View style={styles.profile_details} >
         <View style={styles.profile_pic} ></View>
         <View style={styles.name} >
-          <Text style={styles.user_name} >Maya D'Suza</Text>
-          <Text style={styles.cont_num} >+966551236547</Text>
+          <Text style={styles.user_name} >{userDetails.response.first_name} {userDetails.response.last_name}</Text>
+          <Text style={styles.cont_num} >{userDetails.response.country_code} {userDetails.response.mobile_number}</Text>
         </View>
         <View>
           <Text
@@ -74,7 +107,7 @@ const Profile = ({ navigation }) => {
             onPress={() => handleEditProfile()}
           >Edit</Text>
         </View>
-      </View>
+      </View>}
       <View style={styles.body} >
         <View style={styles.list_item} >
           {Content.map((list, id) => {
@@ -86,10 +119,7 @@ const Profile = ({ navigation }) => {
                   style={styles.name} >{list?.name}</Text>
                 <Image
                   source={require("../../../assets/lagoba_assets/right_arrow.png")}
-                  style={{
-                    width: 7.4,
-                    height: 12
-                  }}
+                  style={list.id == 5 ? { display: "none" } : styles.right_arrow}
                 />
               </View>
             )
@@ -119,7 +149,6 @@ const styles = StyleSheet.create({
   logo: {
     height: 30.05,
     width: 111.85,
-    // backgroundColor: "#3B3B3B",
     marginLeft: 15
   },
   profile_details: {
@@ -153,8 +182,6 @@ const styles = StyleSheet.create({
   },
   list_item: {
     marginLeft: 15,
-    // width: 360,
-    // width:"100%",
     height: 401,
   },
   listing_data: {
@@ -169,8 +196,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold"
   },
+  right_arrow: {
+    width: 7.4,
+    height: 12
+  },
   translate: {
-    marginTop:20,
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

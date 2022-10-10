@@ -74,7 +74,7 @@ const Home = ({ navigation }) => {
                         color="#000"
                     />
                 </View>
-                {/* {
+                {
                    imageDetails?.length > 0 && imageDetails?.map((imageData, ind) =>{
                     return ( 
                         <View key={ind}>
@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
                     </View>
                     )
                    })
-                } */}
+                }
                 
                    {/* <Image
                     style={styles.picture}
@@ -168,19 +168,19 @@ const Home = ({ navigation }) => {
                         <Text style={styles.textStyle} >Show Modal</Text>
                     </Pressable>
                 </View> */}
-                {/* {imageDetails.length > 0 ? 
+                {imageDetails.length > 0 ? 
                 <View>    
-                    <Button 
+                    {/* <Button 
                         title="Contacts"
                         onPress={()=> gotoContacts()}
-                    />               
-                    <StatusBar/>
-                    <SwitchComp/>
+                    />                */}
+                    {/* <StatusBar/>
+                    <SwitchComp/> */}
                     <FileUpload singleImage={imageDetails} />
                    
                 </View>
-                : null} */}
-                 <Map/>
+                : null}
+                 {/* <Map/> */}
             </ScrollView>
         </ImageBackground>
 
