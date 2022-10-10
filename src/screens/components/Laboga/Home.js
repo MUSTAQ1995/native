@@ -1,45 +1,126 @@
-import React from 'react';
-import { View, Text, StyleSheet } from "react-native";
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-import Icon from "react-native-vector-icons/Ionicons";
+import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity,Image, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const Home = ({ navigation }) => {
 
-const Home = () => {
+  const handelAddProjects = () => {
+    navigation.navigate("addproducts");
+    console.log("Navigate ti the add product page")
+  };
+
+  const getToken = async () =>{
+    try {
+      const value = await AsyncStorage.getItem("token")
+      if(value !== null) {
+        console.log(value, "token from the store")
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() =>{
+    getToken()
+  }, [])
+
+  const clear_storage = async () => {
+    try{
+      await AsyncStorage.clear()
+      console.log(AsyncStorage.getItem("token"))
+    } catch(error) {
+      Alert.alert("Error:", error.message)
+    }
+  }
+
   return (
     <View style={styles.container} >
-      <Text style={styles.textstyle} >Home Page</Text>
-      {/* <Text>
-        <Icon 
-          name='person'
-          size={50}
-        />
-      </Text> */}
-      {/* <Icon.ToolbarAndroid 
-        title="Home"
-        titleColor="black"
-        navIconName="md-arrow-back"
-        // onIconClicked={props.navigator.pop}
-        actions={[
-          { title: 'Settings', iconName: 'md-settings', iconSize: 30, show: 'always' },
-          { title: 'Follow me on Twitter', iconName: 'logo-twitter', iconColor: "#4099FF", show: 'ifRoom' },
-        ]}
-        overflowIconName="md-more"
+      {/* <Button 
+        title='Clear storage'
+        onPress={() => clear_storage()}
       /> */}
-      <Icon name="add" color="#4F8EF7" size={50} />
-      <Text style={styles.textstyle} >Welcome to the Native world....</Text>
+      <View style={styles.header} >
+        <Image
+          source={require("../../../assets/lagoba_assets/logo_white.png")}
+          style={styles.logo}
+        />
+      </View>
+
+      <View style={styles.body} >
+        <Image 
+          style={styles.cloth_hanger}
+          source={require("../../../assets/lagoba_assets/clothes-hanger.png")}
+        />
+        <Text style={styles.looks_empty} >Looks Empty</Text>
+        <Text style={styles.add_some_products} >let's add some products</Text>
+        <TouchableOpacity 
+          style={styles.add_products}
+          onPress={handelAddProjects} >
+          <Text style={styles.add_product_text} >
+            ADD PRODUCTS
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 };
 
-const styles = StyleSheet.create({
+
+const styles= StyleSheet.create({
   container:{
     flex:1,
+    paddingHorizontal:16,
+    backgroundColor:"#FFF"
   },
-  textstyle:{
+  header:{
+    backgroundColor:"#FAFAF8",
+    marginTop:5
+  },
+  logo:{
+    height:30,
+    width:112,
+  },
+  body:{
+    alignItems:"center",
+  },
+  cloth_hanger:{
+    height:83.5,
+    width:112,
+    marginTop:124,
+  },
+  looks_empty:{
+    width:132,
+    // height:23,
+    marginTop:21.6,
+    fontSize:20,
+    fontWeight:"bold",
     color:"#57504B",
-    fontSize:21,
-    fontFamily:"DancingScript-VariableFont_wght"
+    textAlign:"center"
+  },
+  add_some_products:{
+    marginTop:5,
+    width:194,
+    height:18,
+    fontSize:16,
+    color:"#57504B",
+    textAlign:"center",
+    fontWeight:"600"
+  },
+  add_products:{
+    marginTop:86,
+    height:56,
+    width:188,
+    backgroundColor:"#F2E7D3",
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  add_product_text:{
+    
+    height:15,
+    width:116,
+    color:"#57504B",
+    fontWeight:"bold"
   }
 })
 
-export default Home;
+export default Home

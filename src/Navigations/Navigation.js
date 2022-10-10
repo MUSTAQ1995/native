@@ -1,25 +1,26 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-
-//componets
-import Home from '../screens/Home';
-import Contact from '../screens/Contact';
-import ForgotPassword from '../screens/Login/ForgotPassword';
-import SignUp from '../screens/Login/SignUp';
-import CustomValidation from '../screens/Login/CustomValidation';
-import KeyboardAvoid from '../screens/components/KeyboardAvoid';
-import Header from "../screens/Header";
-import { Button } from "react-native";
-// import Login from '../screens/Login/Login';
-
+import {TouchableOpacity, Image}  from "react-native"
 // Lagoba:
 import Login from '../screens/components/Laboga/Login';
+import BottomTabs from "../Navigations/BottomTabs";
 import Verify from '../screens/components/Laboga/Verify';
-import Steppe from '../screens/components/Laboga/Steppe';
-import Dashboard from "../screens/components/Laboga/Dashboard";
-import BottomTabs from './BottomTabs';
-import AllProducts from '../screens/components/Laboga/AllProducts';
+import ShippingCharge from '../screens/components/Laboga/shippingcharges/ShippingCharge';
+import AddProducts from "../screens/components/Laboga/AllProducts";
+import EditProfile from '../screens/components/Laboga/Profile/EditProfile';
+import Home from '../screens/HomeCopy';
+import Wallet from "../screens/components/Laboga/wallet/Mywallet";
+import AddProductDetails from '../screens/components/Laboga/ProductDetails/AddProductDetails';
+import AllOrders from '../screens/components/Laboga/Orders/AllOrders';
+import Popup from '../screens/components/Laboga/Popup';
+import OrderDetails from "../screens/components/Laboga/Orders/OrderDetails";
+import MyProduct from '../screens/components/Laboga/ProductDetails/MyProduct';
+import SingleProductDetails from '../screens/components/Laboga/ProductDetails/SingleProductDetails';
 
+
+// ui-components:
+import Icon from "react-native-vector-icons/Ionicons";
+import SignUp from '../screens/components/Laboga/Profile/SignUp';
 //  --------------------------------------------------------------------
 
 const Stack = createStackNavigator();
@@ -27,82 +28,142 @@ const Stack = createStackNavigator();
 export const Navigation = () => {
 
   return (
-    <Stack.Navigator 
-      initialRouteName='bottomtabs' 
+    <Stack.Navigator
+      initialRouteName='Login'
       screenOptions={{
-        // headerStyle:{
-        //   backgroundColor:"#fff",
-        // },
         headerTintColor: "#57504B",
-        // headerTitleStyle: {
-        //   fontWeight: "bold",
-        // },
       }}
     >
-      <Stack.Screen 
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
+        name="verify"
+        component={Verify}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
         name="bottomtabs"
         component={BottomTabs}
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
-        <Stack.Screen 
-          name="Home" 
-          component={Home} 
-          // options={{
-          //   headerShown: false
-          // }}
-        />
-        <Stack.Screen 
-          name="Contacts" 
-          component={Contact} 
-          options={{
-            title: "Our Contacts", 
-            // headerShown: false
-          }} 
-        />
-        <Stack.Screen 
-          name="allproducts"
-          component={AllProducts}
-          options={{
-            title:'Add Products',
-            // headerShown:false
-          }}
-        />
-        <Stack.Screen 
-          name="Login" 
-          component={Login} 
-           options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen 
-          name="verify"
-          component={Verify}
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen 
-          name="stepper"
-          component={Steppe}
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen 
-          name="dashboard"
-          component={Dashboard}
-          options={{
-            headerShown:false
-          }}
-        />
-        
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="CustomValidation" component={CustomValidation} />
-        <Stack.Screen name="Key-board" component={KeyboardAvoid} />
-        <Stack.Screen 
+
+      <Stack.Screen
+        name="shippingcharges"
+        component={ShippingCharge}
+        options={{
+          title: "Shipping Charged"
+        }}
+      />
+
+      <Stack.Screen
+        name="addproducts"
+        component={AddProducts}
+        options={{
+          title: "Add Products"
+        }}
+      />
+
+      <Stack.Screen
+        name='editprofile'
+        component={EditProfile}
+        options={{
+          title: " Edit Profile",
+          headerStyle: {
+            backgroundColor: "#FAFAF8",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="wallet"
+        component={Wallet}
+        options={{
+          title: "My Wallet",
+          headerStyle: {
+            backgroundColor: "#FAFAF8",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="productdetails"
+        component={AddProductDetails}
+        options={{
+          title: "Add Products"
+        }}
+      />
+
+      <Stack.Screen
+        name="allorders"
+        component={AllOrders}
+        options={{
+          title: "Orders",
+          headerStyle: {
+            borderBottomWidth: 0,
+            borderBottomColor:"red"
+          },
+          headerRight: () => (
+            <TouchableOpacity style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
+              marginRight:16,
+              width:"50%"
+            }} >
+              <Image
+                source={require("../assets/lagoba_assets/calender_icon.png")}
+                style={{ height: 11, width: 11 }}
+              />
+              <Popup />
+              <Icon name="chevron-down-outline" size={12} color="black" />
+            </TouchableOpacity>
+          )
+        }}
+      />
+      <Stack.Screen
+        name='orderdetails'
+        component={OrderDetails}
+        options={{
+          title:"Orders"
+        }}
+      />
+      <Stack.Screen 
+         name="myproduct"
+         component={MyProduct}
+         options={{
+           title:"My Products"
+         }}
+      />
+      <Stack.Screen 
+        name="singleproduct"
+        component={SingleProductDetails}
+        options={{
+          title:"Product Details"
+        }}
+      />
+      <Stack.Screen 
+        name="signup"
+        component={SignUp}
+        options={{
+          title: "Sign Up"
+        }}
+      />
+      <Stack.Screen 
+        name="home"
+        component={Home}
+      />
+      {/* <Stack.Screen 
           name="Header" 
           component={Header} 
           // options={({ route }) => ({ title: route.params.name })}
@@ -125,7 +186,7 @@ export const Navigation = () => {
               
             )
           }}
-        />
+        /> */}
     </Stack.Navigator>
   )
 };

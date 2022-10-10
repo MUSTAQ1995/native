@@ -1,12 +1,10 @@
 package com.myapp;
 
-include ':app'
- 
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativepagerview.PagerViewPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
@@ -56,7 +54,9 @@ public class MainApplication extends Application implements ReactApplication {
   //     protected List<ReactPackage> getPackages() {
   //     return Arrays.<ReactPackage>asList(
   //           new MainReactPackage(),
-            new VectorIconsPackage(),
+            // new PagerViewPackage(),
+            // new VectorIconsPackage(),
+            // new VectorIconsPackage(),
 
   //           new RNGeocoderPackage()); 
   // }

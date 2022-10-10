@@ -62,7 +62,7 @@ const Home = ({ navigation }) => {
     return (
         <ImageBackground source={require("../assets/pngs/bg.jpg")} style={styles.container}>
             <ScrollView style={{ flex: 1 }}>
-             {/* <View style={styles.gallary} >
+             <View style={styles.gallary} >
                     <Button 
                         title='kamera'   
                         onPress={()=>cameraAcess()} 
@@ -73,8 +73,8 @@ const Home = ({ navigation }) => {
                         onPress={()=>gallaryAcess()} 
                         color="#000"
                     />
-                </View> */}
-                {/* {
+                </View>
+                {
                    imageDetails?.length > 0 && imageDetails?.map((imageData, ind) =>{
                     return ( 
                         <View key={ind}>
@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
                     </View>
                     )
                    })
-                } */}
+                }
                 
                    {/* <Image
                     style={styles.picture}
@@ -168,19 +168,19 @@ const Home = ({ navigation }) => {
                         <Text style={styles.textStyle} >Show Modal</Text>
                     </Pressable>
                 </View> */}
-                {/* {imageDetails.length > 0 ? 
+                {imageDetails.length > 0 ? 
                 <View>    
-                    <Button 
+                    {/* <Button 
                         title="Contacts"
                         onPress={()=> gotoContacts()}
-                    />               
-                    <StatusBar/>
-                    <SwitchComp/>
+                    />                */}
+                    {/* <StatusBar/>
+                    <SwitchComp/> */}
                     <FileUpload singleImage={imageDetails} />
                    
                 </View>
-                : null} */}
-                 <Map/>
+                : null}
+                 {/* <Map/> */}
             </ScrollView>
         </ImageBackground>
 

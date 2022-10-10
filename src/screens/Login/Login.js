@@ -107,7 +107,6 @@ const Login = ({ navigation }) => {
             onPress={handleSubmit}
             title="Sign In"
           />
-
         </SafeAreaView>
       )}
     </Formik>

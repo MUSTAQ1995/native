@@ -15,6 +15,7 @@ import AppRouter from './src/Navigations/AppRouter';
 // import {enableLatestRenderer} from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider as PaperProvider } from "react-native-paper";
+import { MenuProvider } from 'react-native-popup-menu';
 
 
 // enableLatestRenderer();
@@ -25,11 +26,13 @@ const App = () => {
   }, [])
   return (
     <PaperProvider>
-      <NavigationContainer>
-        <SafeAreaView style={{flex:1}}>
-          <AppRouter/>
-        </SafeAreaView>
-      </NavigationContainer>
+      <MenuProvider>
+        <NavigationContainer>
+          <SafeAreaView style={{ flex: 1 }}>
+            <AppRouter />
+          </SafeAreaView>
+        </NavigationContainer>
+      </MenuProvider>
     </PaperProvider>
   );
 };
