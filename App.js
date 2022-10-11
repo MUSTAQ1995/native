@@ -12,18 +12,20 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppRouter from './src/Navigations/AppRouter';
-// import {enableLatestRenderer} from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider as PaperProvider } from "react-native-paper";
 import { MenuProvider } from 'react-native-popup-menu';
-
+import { requestUserPermission,NotificationListner } from "./src/utils/notoficationServices"
 
 // enableLatestRenderer();
 const App = () => {
 
   useEffect(() => {
-    SplashScreen.hide()
+    requestUserPermission();
+    NotificationListner();
+    SplashScreen.hide();
   }, [])
+
   return (
     <PaperProvider>
       <MenuProvider>

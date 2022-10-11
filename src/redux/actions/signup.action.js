@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const setToken = async (data) => {
   try {
     data && await AsyncStorage.setItem("token", data)
-    // console.log(data, "token set up")
   } catch (e) {
       console.log(e, "error")
   }
@@ -95,5 +94,17 @@ export const log_out = async (data) => {
   } catch(error){
     console.log(error)
   }
-  
+};
+
+
+// push notification :
+export const push_notification = async (data) => {
+  try {
+    const response = await axiosInstance.post("push", data) 
+    console.log(res.data, "push notification response")
+    return response;
+  } catch (error) 
+  {
+    console.log(error,)
+  }
 }

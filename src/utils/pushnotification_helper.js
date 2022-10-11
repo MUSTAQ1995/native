@@ -10,6 +10,7 @@ export const  requestUserPermission = async () => {
 
   if (enabled) {
     console.log('Authorization status:', authStatus);
+    getPushToken()
   }
 }
 

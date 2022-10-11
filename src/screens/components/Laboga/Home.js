@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity,Image, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { requestUserPermission, NotificationListner } from "../../../utils/pushnotification_helper"
+import DeviceInfo from  "react-native-device-info";
+import { push_notification } from '../../../redux/actions/signup.action';
 
 const Home = ({ navigation }) => {
-
   const handelAddProjects = () => {
     navigation.navigate("addproducts");
     console.log("Navigate ti the add product page")
@@ -18,13 +18,20 @@ const Home = ({ navigation }) => {
       }
     } catch (error) {
       console.log(error.message)
-    }
+    } 
   }
 
   useEffect(() =>{
-    getToken();
-    requestUserPermission();
-    NotificationListner();
+    getToken();   
+    // const uuid =DeviceInfo.getUniqueId()
+    let brand = DeviceInfo.getModel()
+    console.log(brand, "device modal")
+    // DeviceInfo.getUniqueId().then((uuid) =>{
+    //   console.log("uuid of the mobile", uuid)
+    // })
+    // .catch(error=>{
+    //   console.log(error)
+    // })
   }, [])
 
   const clear_storage = async () => {
