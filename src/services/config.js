@@ -20,7 +20,6 @@ export const getToken = async () => {
     try {
         const token = await AsyncStorage.getItem('token');
         if(token){
-            console.log(token, "token in config file")
             return token;
         }
       } catch(e) {

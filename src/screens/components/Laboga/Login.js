@@ -7,12 +7,14 @@ import {
   KeyboardAvoidingView,
   Alert,
   ImageBackground,
+  Button
  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import CountryCode from './CountryCode';
 import { Formik } from 'formik';
 import * as yup from "yup";
 import { checkMobile, getOtp } from '../../../redux/actions/signup.action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SchemaValidation = yup.object().shape({
@@ -27,7 +29,7 @@ const Login = ({ navigation, route }) => {
 
   //  states:
   const [phoneNumber, setPhoneNumber] = useState(null);
-  const [countryCallingCode, setCountryCallingCode] = useState("91");
+  const [countryCallingCode, setCountryCallingCode] = useState("966");
   const [isdisable, setIsDisable] = useState(true);
   const [maxiMumLength, setMaxiMumLength] = useState(10);
   const [errorMessage, setErrorMessage] = useState("Enter a Valid Number");
@@ -87,24 +89,29 @@ const Login = ({ navigation, route }) => {
   }
 
   const gotoVerification =(values) => {
-    // if(countryCallingCode && values.mobileNumber ){
+    if(countryCallingCode && values.mobileNumber ){
 
-    //   getOtp({
-    //     "country_code":countryCallingCode,
-    //     "mobile_number":values.mobileNumber
-    //   })
-    //   navigation.navigate("verify", {
-    //     code: countryCallingCode,
-    //     number: phoneNumber,
-    //   });
-    // } else {
-    //   Alert.alert("Enter Proper Number")
-    // }
-    navigation.navigate("verify", {
-      code: countryCallingCode,
-      number: phoneNumber,
-    });
+      getOtp({
+        "country_code":countryCallingCode,
+        "mobile_number":values.mobileNumber
+      })
+      navigation.navigate("verify", {
+        code: countryCallingCode,
+        number: phoneNumber,
+      });
+    } else {
+      Alert.alert("Enter Proper Number")
+    }
+    // navigation.navigate("verify", {
+    //   code: countryCallingCode,
+    //   number: phoneNumber,
+    // });
   };
+
+
+  const clearStorage = () => {
+    AsyncStorage.clear()
+  }
   // ---------------------------------------------------------
 
   return (
@@ -113,6 +120,10 @@ const Login = ({ navigation, route }) => {
       source={require("../../../assets/lagoba_assets/bckgn.png")}
       style={styles.bckgn}
     >
+      <Button 
+        title="Clear storage"
+        onPress= {() => clearStorage()}
+      />
       <Formik
         innerRef={formikRef}
         initialValues={initialData}

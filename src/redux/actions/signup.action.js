@@ -32,6 +32,7 @@ export const registration = async (data) => {
 export const checkMobile =  async (data) => {
   try {
     const response = await axiosInstance.post("check_mobile", data)
+    console.log(response.data, "otp response")
     return response?.data
   } catch(error){
     throw(error)
@@ -41,6 +42,7 @@ export const checkMobile =  async (data) => {
 export const getOtp = async (data) => {
   try {
     const response = await axiosInstance.post("send_otp.php", data)
+    console.log(response.data, "otp response")
   } catch(error){
     throw(error)
   }
@@ -105,6 +107,25 @@ export const push_notification = async (data) => {
     return response;
   } catch (error) 
   {
-    console.log(error,)
+    console.log(error,"error for push")
   }
+}
+
+//wallet details:
+// export const wallet_history  = async (ind) => {
+//   console.log("wallect action")
+//   await axiosInstance.get(`wallet_history?index=${ind}&size=2`)
+//   .then(res => {
+//     console.log(res.data, "wallet response")
+//     return res.data;
+//   })
+//   .catch(e=>{
+//     console.log(e)
+//   })
+// }
+export const wallet_history  = async(ind) => {
+  try{
+    const response=await axiosInstance.get(`wallet_history?index=${ind}&size=20`)
+    return response.data
+  }catch(err){console.log(err)}
 }

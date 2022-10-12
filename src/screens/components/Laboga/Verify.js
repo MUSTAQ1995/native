@@ -11,6 +11,7 @@ import {
   Alert
 } from 'react-native';
 import OtpInputs from 'react-native-otp-inputs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkMobile, verifyOtp, log_in } from '../../../redux/actions/signup.action';
 
 const Verify = ({ route, navigation }) => {
@@ -156,7 +157,7 @@ const Verify = ({ route, navigation }) => {
             <TouchableOpacity
               disabled={isdisable}
               style={isdisable ? styles.disable : styles.button}
-              onPress={() => dummyOTP() //submitOTP()
+              onPress={() => submitOTP()
               }
             >
               <Text style={styles.next} >Next</Text>

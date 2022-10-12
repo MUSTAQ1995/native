@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Alert, TouchableOpacity } from "react-native";
 import { get_profile, log_out } from '../../../redux/actions/signup.action';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -112,16 +112,18 @@ const Profile = ({ navigation }) => {
         <View style={styles.list_item} >
           {Content.map((list, id) => {
             return (
-              <View
-                key={id} style={styles.listing_data} >
+              <TouchableOpacity
+                key={id} style={styles.listing_data} 
+                
+                onPress={() => handleNavigate(list)}>
                 <Text
-                  onPress={() => handleNavigate(list)}
+                 
                   style={styles.name} >{list?.name}</Text>
                 <Image
                   source={require("../../../assets/lagoba_assets/right_arrow.png")}
                   style={list.id == 5 ? { display: "none" } : styles.right_arrow}
                 />
-              </View>
+              </TouchableOpacity>
             )
           })}
         </View>
