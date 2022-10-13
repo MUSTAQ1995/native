@@ -19,6 +19,7 @@ export const encryptData = (text) => {
 export const getToken = async () => {
     try {
         const token = await AsyncStorage.getItem('token');
+        console.log(token, "token from the backend")
         if(token){
             return token;
         }

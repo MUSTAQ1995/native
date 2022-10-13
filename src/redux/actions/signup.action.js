@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import axiosInstance from "../../services/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -64,7 +63,6 @@ export const log_in = async (data) => {
     if(response.data.status === true) {
       setToken(response.data.response.token)
     }
-    console.log(response.data, "action status")
     return response
   } catch (errors){
     throw(errors)
@@ -103,7 +101,7 @@ export const log_out = async (data) => {
 export const push_notification = async (data) => {
   try {
     const response = await axiosInstance.post("push", data) 
-    console.log(res.data, "push notification response")
+    console.log(response, "response for the push")
     return response;
   } catch (error) 
   {
@@ -128,4 +126,18 @@ export const wallet_history  = async(ind) => {
     const response=await axiosInstance.get(`wallet_history?index=${ind}&size=20`)
     return response.data
   }catch(err){console.log(err)}
+};
+
+export const country_list = async () => {
+  try{
+    const response = await axiosInstance.get("country_list")
+    return response
+  } catch(error){
+    console.log(error)
+  }
 }
+
+
+// export const postShippingCharges = () => {
+    
+// }

@@ -10,9 +10,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     async (config) => {
-        // if (config.url == 'send_otp.php'){
-        //     config.baseURL= 'https://staging-api.laboga.com/app/vendor_v01/api/'
-        // }
         const token = await getToken();
         const country_id = await getCountryId();
         config.headers=getHeaders(config.url);
@@ -24,6 +21,9 @@ axiosInstance.interceptors.request.use(
         Promise.reject(error)
     }
 );
-
+// axiosInstance.interceptors.response.use((config)=>{
+//     console.log(config,'responseeeeeeeeeeeeeeeeeeeeeeeeeeee')
+//     return config.response
+// })
 export default axiosInstance;
 

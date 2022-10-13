@@ -11,8 +11,7 @@ import {
   Alert
 } from 'react-native';
 import OtpInputs from 'react-native-otp-inputs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { checkMobile, verifyOtp, log_in } from '../../../redux/actions/signup.action';
+import { checkMobile, verifyOtp, log_in, push_notification } from '../../../redux/actions/signup.action';
 
 const Verify = ({ route, navigation }) => {
   const { code, number } = route.params;
@@ -22,8 +21,9 @@ const Verify = ({ route, navigation }) => {
     mobileNumber: number,
   }
   const [isdisable, setIsDisable] = useState(true);
-  const [mobieStatus, setMobileStatus] = useState(false);
   const [otpStatus, setOtpStatus] = useState(false)
+  const [uniqueID, setUniqueID] = useState(null);
+  const [brandModal,setBrandModel] = useState(null);
 
   // useEffect(() =>{
   //   checkMobile(number)
@@ -62,7 +62,24 @@ const Verify = ({ route, navigation }) => {
     console.log("Checking the login ")
   }
 
-
+  const notiFication = () => {
+      let brand = DeviceInfo.getModel()
+      setBrandModel(brand)
+      console.log(brand, "device modal")
+      DeviceInfo.getUniqueId().then((uuid) =>{9999
+        console.log("uuid of the mobile", uuid)
+        setUniqueID(uuid)
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+      brandModal && uniqueID && push_notification({
+      "uuid": uniqueID,
+      "system_info": brandModal,
+      "device_type": "1",
+      "token": "cGtZ7A_7TvSwqp9fxGbzKG:APA91bFt9OB7xSBYmB6asK4lOpjkIb-ZLYjiBZJYIKT3CwQQJq1rDQlVvQ_tYg3BPoTSzg7QnOaKYDUmNotjSOibWTLdRjMWycTGFl9FycmLieA9AmW2HFcgNtmN9igJwbdDVKetTDG9"
+    })
+  }
   const dummyOTP = () => {
     navigation.navigate("bottomtabs");
     log_in({
@@ -84,6 +101,9 @@ const Verify = ({ route, navigation }) => {
               "device_type": "1",
               "mobile_number": number,
               "country_code": `+${code}`
+            }).then((res) =>{
+              // notiFication()
+              console.log(res, "response in verify")
             });
           } else {
             navigation.navigate("signup", { paramDetails: paramDetails })

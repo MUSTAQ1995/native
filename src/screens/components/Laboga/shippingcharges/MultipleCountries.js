@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { country_list } from '../../../../redux/actions/signup.action';
+import { useFocusEffect } from '@react-navigation/native';
+import { CountryList } from 'react-native-country-picker-modal';
+
 // import { TextInput } from 'react-native-paper';
 
 const AvailableCountry = [
@@ -36,6 +40,7 @@ const MultipleCountries = () => {
 
   const [price, setPrice] = useState(null);
   const [activeCountries, setActiveCountries] = useState([]);
+  const [CountryList, setCountryList] = useState([])
 
   const selectCountry = (country) => {
     const newCountry = [...activeCountries];
@@ -49,6 +54,20 @@ const MultipleCountries = () => {
     setActiveCountries(newCountry)
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      country_list()
+        .then((res) => {
+          console.log("country ", typeof Object.entries(res.data.response.country))
+          console.log("country ",  res.data.response.country)
+          setCountryList( res.data.response.country)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }, [])
+  )
+  console.log(typeof CountryList, CountryList, "countryyyyyyyyyyyy")
   return (
     <View style={styles.container}>
       <Text style={styles.select_text}>
@@ -61,7 +80,7 @@ const MultipleCountries = () => {
       >
         <View style={styles.select_countries} >
           {
-            AvailableCountry.map((country, ind) => {
+            CountryList?.map((country, ind) => {
               return (
                 <TouchableOpacity
                   onPress={() => selectCountry(country)}
@@ -72,7 +91,7 @@ const MultipleCountries = () => {
                     key={country.id}
                     style={styles.country_name}
                   >
-                    {country.country}
+                    {country.title}
                   </Text>
                 </TouchableOpacity>
               )
@@ -88,7 +107,7 @@ const MultipleCountries = () => {
           activeCountries && activeCountries.map((data, i) => {
             return (
               <View key={i} style={styles.country_prices} >
-                <Text style={styles.country} >{data.country}</Text>
+                <Text style={styles.country} >{data.title}</Text>
                 <TextInput
                   style={styles.input}
                   onChangeText={setPrice}

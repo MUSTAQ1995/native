@@ -120,10 +120,10 @@ const Login = ({ navigation, route }) => {
       source={require("../../../assets/lagoba_assets/bckgn.png")}
       style={styles.bckgn}
     >
-      <Button 
+      {/* <Button 
         title="Clear storage"
         onPress= {() => clearStorage()}
-      />
+      /> */}
       <Formik
         innerRef={formikRef}
         initialValues={initialData}
