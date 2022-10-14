@@ -13,7 +13,6 @@ const ShippingCharge = () => {
 
   const handleChange = (value) => {
     setValue(value);
-
     {value === "Yes" ?  setMultiCountry(true) :  setMultiCountry(false) }
   };
 
@@ -49,9 +48,9 @@ const ShippingCharge = () => {
           </>
       }
 
-      <TouchableOpacity style={styles.save} >
+      {/* <TouchableOpacity style={styles.save} >
         <Text style={styles.save_text} >SAVE SHIPPING CHARGES </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   )
 }

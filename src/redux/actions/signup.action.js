@@ -138,6 +138,10 @@ export const country_list = async () => {
 }
 
 
-// export const postShippingCharges = () => {
-    
-// }
+export const postShippingCharges = async (data) => {
+    try {
+      const response = await axiosInstance.post("shipping_charge", data)
+    } catch(error){
+      console.log(error, "Post shipping charges error")
+    }
+}
