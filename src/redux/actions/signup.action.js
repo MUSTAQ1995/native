@@ -141,7 +141,17 @@ export const country_list = async () => {
 export const postShippingCharges = async (data) => {
     try {
       const response = await axiosInstance.post("shipping_charge", data)
+      return response;
     } catch(error){
       console.log(error, "Post shipping charges error")
     }
+}
+
+export const ordersHomePageDetails  = async () => {
+  try{
+    const response = await axiosInstance.get("home_page")
+    return response;
+  } catch (error) {
+    console.log(error, "Error in order home page")
+  }
 }

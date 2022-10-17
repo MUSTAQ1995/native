@@ -9,7 +9,7 @@ const ShippingCharge = () => {
   const [value, setValue] = useState("No");
   const [price, setPrice] = useState(null);
   const [multyCountry, setMultiCountry] = useState(false);
-
+  
 
   const handleChange = (value) => {
     setValue(value);
@@ -34,7 +34,10 @@ const ShippingCharge = () => {
       </RadioButton.Group>
       <View style={styles.divider}  ></View>
       {
-        multyCountry ? <MultipleCountries /> :
+        multyCountry ? 
+        <View style={{ flex:1}}>
+          <MultipleCountries/>
+        </View> :
           <>
             <View style={styles.country_prices} >
               <Text style={styles.country} >INDIA</Text>
@@ -47,10 +50,6 @@ const ShippingCharge = () => {
             </View>
           </>
       }
-
-      {/* <TouchableOpacity style={styles.save} >
-        <Text style={styles.save_text} >SAVE SHIPPING CHARGES </Text>
-      </TouchableOpacity> */}
     </View>
   )
 }
@@ -58,7 +57,6 @@ const ShippingCharge = () => {
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    // marginHorizontal: 16,
     paddingHorizontal:16,
     backgroundColor: "#fff"
   },
