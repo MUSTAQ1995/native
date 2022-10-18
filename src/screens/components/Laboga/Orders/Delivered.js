@@ -1,17 +1,55 @@
-import React from 'react'
+import React, { useState, useCallback} from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import { 
   View, 
   Text, 
   StyleSheet, 
   ScrollView,
   Image,
-
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native'
+import SingleProduct from '../SingleProduct'
+import { getNewOrderDetails, ordersHomePageDetails } from '../../../../redux/actions/signup.action';
 
 const Delivered = () => {
+  const [delivered, setDelivered] = useState(null);
+  const [isLoading, setIsLodaing] = useState(true);
+
+  const handleOrderDetails = () => {
+    getNewOrderDetails(0, "106")
+      .then((res) => {
+        console.log(res.data, "new order details")
+        setDelivered(res.data.response)
+        setIsLodaing(false)
+      })
+      .catch(error => {
+        console.log(error, "error in orderlist")
+      })
+  }
+
+  // getting the infirmation of orders on bases of month, week and day,
+  const homePageDetails = () => {
+    ordersHomePageDetails()
+      .then((res) => {
+        setAllorderDetails(res.data)
+      })
+      .catch((error) => {
+        console.log(error, "error in all orders details")
+      })
+  };
+
+
+    // side effects:
+    useFocusEffect(
+      useCallback(() => {
+        // homePageDetails()
+        handleOrderDetails()
+      }, [])
+    );
   return (
     <View style={styles.container} >
-      <ScrollView 
+      {/* <ScrollView 
          showsVerticalScrollIndicator={false}
          style={styles.scroll_view} 
       >
@@ -30,7 +68,6 @@ const Delivered = () => {
                     <Text style={styles.price} >SAR 500</Text>
                     <Text style={styles.quantity} >QTY. 1</Text>
                   </View>
-                  {/* <Text style={styles.status}>Received</Text> */}
                   <Text style={styles.delivery}>Delivered</Text>
                 </View>
               </View>
@@ -38,7 +75,25 @@ const Delivered = () => {
           }
           )
         }
-      </ScrollView>
+      </ScrollView> */}
+      {
+        isLoading ? <ActivityIndicator size="large" color="#D0A765"/> :
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scroll_view} >
+            {
+              delivered && delivered?.orders?.map((data, i) => {
+                return (
+                  <View key={i} style={styles.single_order} >
+                    <SingleProduct product={data} />
+                  </View>
+
+                )
+              }
+              )
+            }
+          </ScrollView>
+      }
     </View>
   )
 }
@@ -53,8 +108,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   single_order: {
-    marginTop: 18,
-    height: 110
+    // marginTop: 18,
+    // height: 110
   },
   order_id_text: {
     height: 13,

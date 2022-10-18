@@ -1,60 +1,86 @@
-import React from 'react'
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
+import React, { useState, useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  StyleSheet,
   ScrollView,
   Image,
-
+  ActivityIndicator
 } from 'react-native'
+import { getNewOrderDetails, ordersHomePageDetails } from '../../../../redux/actions/signup.action';
+import SingleProduct from '../SingleProduct';
 
 const InTransit = () => {
+
+  const [inTransit, setInTransit] = useState(null);
+  const [isLoading, setIsLodaing] = useState(true);
+
+  // getting the intransit order details
+  const handleOrderDetails = () => {
+    getNewOrderDetails(0, " 103, 104")
+      .then((res) => {
+        setInTransit(res.data.response)
+        setIsLodaing(false)
+      })
+      .catch(error => {
+        console.log(error, "error in orderlist")
+      })
+  };
+  
+    // getting the infirmation of orders on bases of month, week and day,
+    const homePageDetails = () => {
+      ordersHomePageDetails()
+        .then((res) => {
+          setAllorderDetails(res.data)
+        })
+        .catch((error) => {
+          console.log(error, "error in all orders details")
+        })
+    };
+  useFocusEffect(
+    useCallback(() => {
+      // homePageDetails()
+      handleOrderDetails()
+
+    }, [])
+  );
   return (
     <View style={styles.container} >
-      <ScrollView 
-         showsVerticalScrollIndicator={false}
-         style={styles.scroll_view} 
-      >
       {
-          Array(8).fill().map((data, i) => {
-            return (<View key={i} style={styles.single_order} >
-              <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
-              <View style={styles.product_details} >
-                <Image
-                  source={require("../../../../assets/lagoba_assets/bckgn.png")}
-                  style={styles.product_image}
-                />
-                <View style={styles.name_price} >
-                  <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
-                  <View style={styles.price_quantity} >
-                    <Text style={styles.price} >SAR 500</Text>
-                    <Text style={styles.quantity} >QTY. 1</Text>
+        isLoading ? <ActivityIndicator size="large" color="#D0A765" /> :
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scroll_view} >
+            {
+              inTransit && inTransit?.orders?.map((data, i) => {
+                return (
+                  <View key={i} style={styles.single_order} >
+                    <SingleProduct product={data} />
                   </View>
-                  <Text style={styles.status}>Received</Text>
-                  <Text style={styles.delivery}>Delivered</Text>
-                </View>
-              </View>
-            </View>)
-          }
-          )
-        }
-      </ScrollView>
+
+                )
+              }
+              )
+            }
+          </ScrollView>
+      }
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    marginTop:10,
-    paddingHorizontal:16
+  container: {
+    flex: 1,
+    marginTop: 10,
+    paddingHorizontal: 16
   },
-  scroll_view:{
+  scroll_view: {
     flex: 1,
   },
   single_order: {
-    marginTop: 18,
-    height: 110
+    // marginTop: 18,
+    // height: 110
   },
   order_id_text: {
     height: 13,

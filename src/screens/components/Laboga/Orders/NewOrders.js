@@ -32,7 +32,7 @@ const NewOrders = ({ navigation }) => {
 
   // getting the new order details:
   const handleOrderDetails = () => {
-    getNewOrderDetails(0, " 103, 104")
+    getNewOrderDetails(0, " 100, 102")
       .then((res) => {
         console.log(res.data, "new order details")
         setNewOrders(res.data.response)
@@ -55,10 +55,7 @@ const NewOrders = ({ navigation }) => {
   // JSX---------------------------------------------
   return (
     <View style={styles.container} >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scroll_view}
-      >
+
         {
           isLoading ? <ActivityIndicator size="large" color="#D0A765" /> :
             <ScrollView
@@ -77,7 +74,6 @@ const NewOrders = ({ navigation }) => {
               }
             </ScrollView>
         }
-      </ScrollView>
     </View>
   )
 }

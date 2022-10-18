@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { getOrderDetails, ordersHomePageDetails } from '../../../redux/actions/signup.action';
+import { getNewOrderDetails, getOrderDetails, ordersHomePageDetails } from '../../../redux/actions/signup.action';
 import Popup from './Popup';
 import { useFocusEffect } from '@react-navigation/native';
 import SingleProduct from "./SingleProduct";
@@ -54,7 +54,7 @@ const Dashboard = ({ navigation }) => {
 
   // getting the all orders:
   const handleOrderDetails = () => {
-    getOrderDetails(0)
+    getNewOrderDetails(0, "")
       .then((res) => {
         setOrders(res.data.response)
         setIsLodaing(false)
