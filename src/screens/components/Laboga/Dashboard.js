@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getOrderDetails, ordersHomePageDetails } from '../../../redux/actions/signup.action';
@@ -36,9 +37,10 @@ const Dashboard = ({ navigation }) => {
 
   const [allOrderDetails, setAllorderDetails] = useState(null);
   const [orders, setOrders] = useState(null);
-  const [singleProduct, setSingleProduct] = useState([]);
-  const [type, setType] = useState(1)
+  const [isLoading, setIsLodaing] = useState(true);
 
+
+  // getting the infirmation of orders on bases of month, week and day,
   const homePageDetails = () => {
     ordersHomePageDetails()
       .then((res) => {
@@ -49,11 +51,13 @@ const Dashboard = ({ navigation }) => {
       })
   };
 
+
+  // getting the all orders:
   const handleOrderDetails = () => {
     getOrderDetails(0)
       .then((res) => {
         setOrders(res.data.response)
-
+        setIsLodaing(false)
       })
       .catch(error => {
         console.log(error, "error in orderlist")
@@ -64,7 +68,6 @@ const Dashboard = ({ navigation }) => {
   //   getOrderDetails(0, " 103, 104")
   //     .then((res) => {
   //       setOrders(res.data.response)
-
   //     })
   //     .catch(error => {
   //       console.log(error, "error in orderlist")
@@ -121,21 +124,25 @@ const Dashboard = ({ navigation }) => {
           <Text style={styles.view_all} >View all</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scroll_view} >
-        {
-          orders && orders?.orders?.map((data, i) => {
-            return (
-              <View key={i} style={styles.single_order} >
-                <SingleProduct product={data} />
-              </View>
+      {
+        isLoading ? <ActivityIndicator size="large" color="#D0A765"/> :
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scroll_view} >
+            {
+              orders && orders?.orders?.map((data, i) => {
+                return (
+                  <View key={i} style={styles.single_order} >
+                    <SingleProduct product={data} />
+                  </View>
 
-            )
-          }
-          )
-        }
-      </ScrollView>
+                )
+              }
+              )
+            }
+          </ScrollView>
+      }
+
     </View>
 
   )
@@ -145,11 +152,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor:"#fff"
+    backgroundColor: "#fff"
   },
   header: {
     height: 136,
     marginTop: 9,
+    // backgroundColor: "#FAFAF8"
   },
   logo: {
     height: 30.05,
@@ -209,7 +217,7 @@ const styles = StyleSheet.create({
   all_orders: {
     height: 16,
     marginTop: 18,
-    marginBottom:5,
+    marginBottom: 5,
     flexDirection: "row",
     justifyContent: "space-between",
   },

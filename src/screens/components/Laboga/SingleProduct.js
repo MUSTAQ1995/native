@@ -11,7 +11,6 @@ const SingleProduct = ({
       <Text style={styles.order_id_text}>ORDER ID : {product.order_id}</Text>
       {
         product?.order_product.map((single_product, ind) => {
-          console.log(single_product, "product image url")
           return (
             <>
               <TouchableOpacity key={ind} onPress={() => gotoAllorders()} >

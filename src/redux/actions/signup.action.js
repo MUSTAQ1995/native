@@ -156,7 +156,7 @@ export const ordersHomePageDetails  = async () => {
   }
 }
 
-export const getOrderDetails = async (ind, status) => {
+export const getOrderDetails = async (ind, ) => {
   try {
     const response = await axiosInstance(`order_list?index=${ind}`)
     return response;
@@ -165,14 +165,14 @@ export const getOrderDetails = async (ind, status) => {
   }
 } 
 
-// export const getOrderDetails = async (ind, status) => {
-//   try {
-//     const response = await axiosInstance(`order_list?index=${ind}&size=10&status=${status}`)
-//     return response;
-//   } catch (error) {
-//     console.log(error, "Error in orderlist")
-//   }
-// } 
+export const getNewOrderDetails = async (ind, status) => {
+  try {
+    const response = await axiosInstance(`order_list?index=${ind}&size=10&status=${status}`)
+    return response;
+  } catch (error) {
+    console.log(error, "Error in orderlist")
+  }
+} 
 
 export const get_OrderDetails = async (vid) => {
   try {

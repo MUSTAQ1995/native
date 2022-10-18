@@ -1,20 +1,58 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
-  Image,
-  TouchableOpacity,
-
+  ActivityIndicator,
 } from 'react-native'
+import { getNewOrderDetails, ordersHomePageDetails } from '../../../../redux/actions/signup.action'
+import SingleProduct from '../SingleProduct'
 
-const NewOrders = ({navigation}) => {
+const NewOrders = ({ navigation }) => {
 
+  const [newOrders, setNewOrders] = useState(null)
+  const [isLoading, setIsLodaing] = useState(true);
+
+  // navigate to the product details :
   const gotoOrderDetails = () => {
     navigation.navigate("orderdetails")
   }
-  
+
+  // getting the infirmation of orders on bases of month, week and day,
+  const homePageDetails = () => {
+    ordersHomePageDetails()
+      .then((res) => {
+        setAllorderDetails(res.data)
+      })
+      .catch((error) => {
+        console.log(error, "error in all orders details")
+      })
+  };
+
+  // getting the new order details:
+  const handleOrderDetails = () => {
+    getNewOrderDetails(0, " 103, 104")
+      .then((res) => {
+        console.log(res.data, "new order details")
+        setNewOrders(res.data.response)
+        setIsLodaing(false)
+      })
+      .catch(error => {
+        console.log(error, "error in orderlist")
+      })
+  }
+
+
+  // side effects:
+  useFocusEffect(
+    useCallback(() => {
+      homePageDetails()
+      handleOrderDetails()
+    }, [])
+  );
+
+  // JSX---------------------------------------------
   return (
     <View style={styles.container} >
       <ScrollView
@@ -22,29 +60,22 @@ const NewOrders = ({navigation}) => {
         style={styles.scroll_view}
       >
         {
-          Array(8).fill().map((data, i) => {
-            return (<View key={i} style={styles.single_order} >
-              <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
-              <TouchableOpacity onPress={() => gotoOrderDetails()}>
-                <View style={styles.product_details} >
-                  <Image
-                    source={require("../../../../assets/lagoba_assets/bckgn.png")}
-                    style={styles.product_image}
-                  />
-                  <View style={styles.name_price} >
-                    <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
-                    <View style={styles.price_quantity} >
-                      <Text style={styles.price} >SAR 500</Text>
-                      <Text style={styles.quantity} >QTY. 1</Text>
+          isLoading ? <ActivityIndicator size="large" color="#D0A765" /> :
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={styles.scroll_view} >
+              {
+                newOrders && newOrders?.orders?.map((data, i) => {
+                  return (
+                    <View key={i} style={styles.single_order} >
+                      <SingleProduct product={data} />
                     </View>
-                    <Text style={styles.status}>Received</Text>
-                    <Text style={styles.delivery}>Delivered</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>)
-          }
-          )
+
+                  )
+                }
+                )
+              }
+            </ScrollView>
         }
       </ScrollView>
     </View>
@@ -59,10 +90,11 @@ const styles = StyleSheet.create({
   },
   scroll_view: {
     flex: 1,
+    height: "100%"
   },
   single_order: {
-    marginTop: 18,
-    height: 110
+    // marginTop: 18,
+    // height: 110
   },
   order_id_text: {
     height: 13,
