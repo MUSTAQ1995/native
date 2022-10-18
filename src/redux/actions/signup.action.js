@@ -155,3 +155,20 @@ export const ordersHomePageDetails  = async () => {
     console.log(error, "Error in order home page")
   }
 }
+
+export const getOrderDetails = async (ind, status) => {
+  try {
+    const response = await axiosInstance(`order_list?index=${ind}&size=10&status=${status}`)
+    return response;
+  } catch (error) {
+    console.log(error, "Error in orderlist")
+  }
+} 
+
+export const get_OrderDetails = async (vid) => {
+  try {
+    const response = await axiosInstance.get(`order_details?vendor_id=${vid}`)
+  } catch (error){
+    console.log(error, "Error while getting order details")
+  }
+}

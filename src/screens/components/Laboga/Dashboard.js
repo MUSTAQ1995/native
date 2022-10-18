@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,10 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { getOrderDetails, ordersHomePageDetails } from '../../../redux/actions/signup.action';
 import Popup from './Popup';
-
-
+import { useFocusEffect } from '@react-navigation/native';
+import SingleProduct from "./SingleProduct";
 
 const topBarDetails = [
   {
@@ -31,10 +32,48 @@ const topBarDetails = [
 ];
 
 const ImageCount = 8;
-const Dashboard = ({navigation}) => {
+const Dashboard = ({ navigation }) => {
+
+  const [allOrderDetails, setAllorderDetails] = useState(null);
+  const [orders, setOrders] = useState(null);
+  const [singleProduct, setSingleProduct] = useState([]);
+  const [type, setType] = useState(1)
+
+  const homePageDetails = () => {
+    ordersHomePageDetails()
+      .then((res) => {
+        setAllorderDetails(res.data)
+      })
+      .catch((error) => {
+        console.log(error, "error in all orders details")
+      })
+  };
+
+  const handleOrderDetails = () => {
+    getOrderDetails(0, " 100, 102")
+      .then((res) => {
+        console.log(res.data, "orderlist")
+        setOrders(res.data.response)
+
+      })
+      .catch(error => {
+        console.log(error, "error in orderlist")
+      })
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      homePageDetails()
+      handleOrderDetails()
+
+    }, [])
+  );
   const gotoAllorders = () => {
     navigation.navigate("allorders")
   }
+  // orders && console.log(orders, "orderlist")
+  // allOrderDetails && console.log([Object.values(allOrderDetails)[2]], "allOrderDetails")
+
   return (
     <View style={styles.container} >
       <Image
@@ -69,14 +108,29 @@ const Dashboard = ({navigation}) => {
 
       <View style={styles.all_orders} >
         <Text style={styles.orders_text} >Orders</Text>
-        <TouchableOpacity onPress={()=>gotoAllorders()}>
+        <TouchableOpacity onPress={() => gotoAllorders()}>
           <Text style={styles.view_all} >View all</Text>
         </TouchableOpacity>
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scroll_view} >
-      {
+        {
+          orders && orders?.orders?.map((data, i) => {
+            console.log(data, "data")
+            return (
+              <View key={i} style={styles.single_order} >
+                <Text style={styles.order_id_text}>ORDER ID :{data.order_id}</Text>
+                <TouchableOpacity onPress={() => gotoAllorders()} >
+                  <SingleProduct product={data}/>
+                </TouchableOpacity>
+              </View>
+
+            )
+          }
+          )
+        }
+        {/* {
           Array(8).fill().map((data, i) => {
             return (<View key={i} style={styles.single_order} >
               <TouchableOpacity onPress={()=>gotoAllorders()} >
@@ -102,7 +156,7 @@ const Dashboard = ({navigation}) => {
             )
           }
           )
-        }
+        } */}
       </ScrollView>
     </View>
 

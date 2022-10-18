@@ -7,8 +7,8 @@ import {
   MenuOptions,
   MenuTrigger,
 } from "react-native-popup-menu";
-import { renderers } from 'react-native-popup-menu';
-const { SlideInMenu } = renderers;
+// import { renderers } from 'react-native-popup-menu';
+// const { SlideInMenu } = renderers;
 
 const Popup = () => {
   return (
@@ -16,11 +16,11 @@ const Popup = () => {
       <MenuTrigger text='This Month' />
       <MenuOptions>
         <MenuOption value={1} text="This Month" />
-        <MenuOption value={2} text="This week" />
-        <MenuOption>
+        <MenuOption  style={{ color: "red" }} value={2} text="This week" />
+        <MenuOption value={3}>
           <Text style={{ color: "red" }} >Today</Text>
         </MenuOption>
-        <MenuOption value={4} disabled={true} text="disabled" />
+        {/* <MenuOption value={4} disabled={true} text="disabled" /> */}
       </MenuOptions>
     </Menu>
   )

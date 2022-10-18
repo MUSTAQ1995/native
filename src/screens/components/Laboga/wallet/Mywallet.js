@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { wallet_history } from '../../../../redux/actions/signup.action';
-// import {wallet_history } from "../../../../redux/"
 import { useFocusEffect } from '@react-navigation/native';
 
 
@@ -82,10 +81,6 @@ const Mywallet = () => {
         })
     }, [])
   )
-  // useEffect(() => {
-  //   wallet_history(0)
-  // }, [])
-
 
   return (
     <View style={styles.container} >
