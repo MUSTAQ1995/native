@@ -50,9 +50,8 @@ const Dashboard = ({ navigation }) => {
   };
 
   const handleOrderDetails = () => {
-    getOrderDetails(0, " 100, 102")
+    getOrderDetails(0)
       .then((res) => {
-        console.log(res.data, "orderlist")
         setOrders(res.data.response)
 
       })
@@ -60,6 +59,17 @@ const Dashboard = ({ navigation }) => {
         console.log(error, "error in orderlist")
       })
   }
+
+  // const handleOrderDetails = () => {
+  //   getOrderDetails(0, " 103, 104")
+  //     .then((res) => {
+  //       setOrders(res.data.response)
+
+  //     })
+  //     .catch(error => {
+  //       console.log(error, "error in orderlist")
+  //     })
+  // }
 
   useFocusEffect(
     useCallback(() => {
@@ -71,7 +81,6 @@ const Dashboard = ({ navigation }) => {
   const gotoAllorders = () => {
     navigation.navigate("allorders")
   }
-  // orders && console.log(orders, "orderlist")
   // allOrderDetails && console.log([Object.values(allOrderDetails)[2]], "allOrderDetails")
 
   return (
@@ -117,46 +126,15 @@ const Dashboard = ({ navigation }) => {
         style={styles.scroll_view} >
         {
           orders && orders?.orders?.map((data, i) => {
-            console.log(data, "data")
             return (
               <View key={i} style={styles.single_order} >
-                <Text style={styles.order_id_text}>ORDER ID :{data.order_id}</Text>
-                <TouchableOpacity onPress={() => gotoAllorders()} >
-                  <SingleProduct product={data}/>
-                </TouchableOpacity>
+                <SingleProduct product={data} />
               </View>
 
             )
           }
           )
         }
-        {/* {
-          Array(8).fill().map((data, i) => {
-            return (<View key={i} style={styles.single_order} >
-              <TouchableOpacity onPress={()=>gotoAllorders()} >
-              <Text style={styles.order_id_text}>ORDER ID : #3B3B3B</Text>
-              <View style={styles.product_details} >
-                <Image
-                  source={require("../../../assets/lagoba_assets/bckgn.png")}
-                  style={styles.product_image}
-                />
-                <View style={styles.name_price} >
-                  <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
-                  <View style={styles.price_quantity} >
-                    <Text style={styles.price} >SAR 500</Text>
-                    <Text style={styles.quantity} >QTY. 1</Text>
-                  </View>
-                  <Text style={styles.status}>Received</Text>
-                  <Text style={styles.delivery}>Delivered</Text>
-                </View>
-              </View>
-              </TouchableOpacity>
-            </View>
-           
-            )
-          }
-          )
-        } */}
       </ScrollView>
     </View>
 
@@ -164,18 +142,14 @@ const Dashboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  scroll_view: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     paddingHorizontal: 16,
-
+    backgroundColor:"#fff"
   },
   header: {
     height: 136,
     marginTop: 9,
-    backgroundColor: "#FAFAF8"
   },
   logo: {
     height: 30.05,
@@ -235,6 +209,7 @@ const styles = StyleSheet.create({
   all_orders: {
     height: 16,
     marginTop: 18,
+    marginBottom:5,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -249,9 +224,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline"
   },
+  scroll_view: {
+    flex: 1,
+    height: "100%",
+  },
   single_order: {
-    marginTop: 18,
-    height: 110
+    // marginTop: 13,
+    // height: 110
   },
   order_id_text: {
     height: 13,

@@ -1,131 +1,51 @@
 import React from 'react'
-import { View, Image, StyleSheet, Text, } from "react-native";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import StatusCode from '../../reuse/StatusCode';
 
 
 const SingleProduct = ({
   product
 }) => {
   return (
-
-    <View style={styles.product_details} >
+    <>
+      <Text style={styles.order_id_text}>ORDER ID : {product.order_id}</Text>
       {
-        product.order_product?.map((productDetails, ind) => {
+        product?.order_product.map((single_product, ind) => {
+          console.log(single_product, "product image url")
           return (
             <>
-              <Image
-                source={require("../../../assets/lagoba_assets/bckgn.png")}
-                style={styles.product_image}
-              />
-              <View style={styles.name_price} >
-                <Text style={styles.product_name} >Printed Solid Border Blue Hijab</Text>
-                <View style={styles.price_quantity} >
-                  <Text style={styles.price} >SAR 500</Text>
-                  <Text style={styles.quantity} >QTY. 1</Text>
+              <TouchableOpacity key={ind} onPress={() => gotoAllorders()} >
+                <View style={styles.product_details} >
+                  <Image
+                    style={styles.product_image}
+                    source={{
+                      uri: single_product?.product_image
+                    }}
+                  />
+                  <View style={styles.name_price} >
+                    <Text style={styles.product_name} >{single_product.product_title}</Text>
+                    <View style={styles.price_quantity} >
+                      <Text style={styles.price} >{single_product.unit_price}</Text>
+                      <Text style={styles.quantity} >QTY. {single_product.quantity}</Text>
+                    </View>
+                    <View>
+                      <StatusCode statusID={product?.status} />
+                    </View>
+                  </View>
                 </View>
-                <Text style={styles.status}>Received</Text>
-                <Text style={styles.delivery}>Delivered</Text>
-              </View>
+              </TouchableOpacity>
             </>
           )
         })
       }
-
-    </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  scroll_view: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-
-  },
-  header: {
-    height: 136,
-    marginTop: 9,
-    backgroundColor: "#FAFAF8"
-  },
-  logo: {
-    height: 30.05,
-    width: 111.85,
-  },
-  headline: {
-    marginTop: 9,
-    height: 16,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  dashboard_name: {
-    flex: 0.65,
-    fontSize: 14,
-    fontWeight: "bold"
-  },
-  filter: {
-    flex: 0.35,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly"
-  },
-  filter_text: {
-    fontSize: 10,
-    fontWeight: "bold"
-  },
-  top_bar: {
-    marginTop: 11,
-    height: 84,
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    justifyContent: "space-between",
-  },
-  category: {
-    height: 84,
-    width: "30%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "#DEE4E8",
-  },
-  no_orders: {
-    height: 36,
-    color: "#57504B",
-    fontWeight: "bold",
-    fontSize: 27,
-    fontFamily: "New York Regular",
-    letterSpacing: 2.7
-  },
-  order_category: {
-    height: 11,
-    fontSize: 10,
-    letterSpacing: 1,
-    color: "#A0A2A8"
-  },
-  all_orders: {
-    height: 16,
-    marginTop: 18,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  orders_text: {
-    fontSize: 14,
-    color: "#57504B",
-    fontWeight: "bold"
-  },
-  view_all: {
-    fontSize: 10,
-    color: "#57504B",
-    fontWeight: "bold",
-    textDecorationLine: "underline"
-  },
-  single_order: {
-    marginTop: 18,
-    height: 110
-  },
   order_id_text: {
     height: 13,
+    marginTop:13,
     fontSize: 12,
     color: "#000",
     fontWeight: "bold"
@@ -133,32 +53,31 @@ const styles = StyleSheet.create({
   product_details: {
     height: 88,
     marginTop: 9,
-    // flexDirection: ""
+    flexDirection: "row"
   },
   product_image: {
     height: 88,
+    resizeMode: 'cover',
     flex: 0.2,
   },
   name_price: {
     flex: 0.8,
-    marginLeft: 15
+    marginLeft: 15,
   },
   product_name: {
     height: 13,
     fontSize: 12,
     fontWeight: "bold",
     color: "#57504B",
-    // lineHeight:13
   },
   price_quantity: {
     marginTop: 10,
     flexDirection: "row",
-    width: "30%",
+    width: "50%",
     height: 14,
     justifyContent: "space-between",
   },
   price: {
-    // fontFamily:"s"
     fontSize: 12,
     fontWeight: "bold",
     color: "#57504B"
@@ -175,11 +94,6 @@ const styles = StyleSheet.create({
     color: "#CCCCCC",
     fontWeight: "bold"
   },
-  delivery: {
-    color: "green",
-    fontWeight: "bold",
-    fontSize: 10,
-  }
 })
 
 export default SingleProduct
