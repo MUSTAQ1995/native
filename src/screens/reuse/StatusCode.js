@@ -21,25 +21,29 @@ const orderStatusCode = [
   {
     "id": "106",
     "title": "Delivered",
+  },
+  {
+    "id": "107",
+    "title": "Cancelled",
   }
 ]
 
-const StatusCode = ({statusID }) => {
+const StatusCode = ({ statusID }) => {
 
   const [orderStatus, setOrderStatus] = useState(null);
   const [statusColor, setStatusColor] = useState("red")
-  
+
   useFocusEffect(
     useCallback(() => {
       handleCheckStatus(statusID)
     }, [])
   );
 
-  const handleCheckStatus = statusID  => {
-    switch(statusID) {
+  const handleCheckStatus = statusID => {
+    switch (statusID) {
       case "100":
         setOrderStatus("OrderPlaced");
-        setStatusColor("red");
+        setStatusColor("#D0A765");
         break;
       case "102":
         setOrderStatus("Confirmed");
@@ -51,11 +55,15 @@ const StatusCode = ({statusID }) => {
         break;
       case "104":
         setOrderStatus("On the way");
-        setStatusColor("green");
+        setStatusColor("#D0A765");
         break;
       case "106":
         setOrderStatus("Delivered");
         setStatusColor("green");
+        break;
+      case "107":
+        setOrderStatus("Cancelled");
+        setStatusColor("red");
         break;
       default:
         setOrderStatus(null)
@@ -66,12 +74,14 @@ const StatusCode = ({statusID }) => {
 
   return (
 
-      <Text style={{color:statusColor,
-        // height: 11,
-        fontSize: 10,
-        marginTop: 12,
-        // color: "#CCCCCC",
-        fontWeight: "bold"}} >{orderStatus}</Text>
+    <Text style={{
+      color: statusColor,
+      // height: 11,
+      fontSize: 10,
+      marginTop: 12,
+      // color: "#CCCCCC",
+      fontWeight: "bold"
+    }} >{orderStatus}</Text>
 
   )
 }

@@ -175,10 +175,22 @@ export const getNewOrderDetails = async (ind, status) => {
   }
 } 
 
-export const get_OrderDetails = async (vid) => {
-  try {
-    const response = await axiosInstance.get(`order_details?vendor_id=${vid}`)
-  } catch (error){
-    console.log(error, "Error while getting order details")
+// order Detail:
+export const getSingleOrderDetails = async (id) => {
+  try{
+    const response = await axiosInstance.get(`order_detail?order_vendor_id=${id}`)
+    return response
+  } catch(error){
+    console.log(error, "Error wwhile getting single order details")
+  }
+}
+
+
+export const orderStatusUpdate = async (data) => {
+  try{
+    const response = await axiosInstance.post("update_order_status", data)
+    return response;
+  } catch(error) {
+    console.log(error, "Failed to update the status")
   }
 }

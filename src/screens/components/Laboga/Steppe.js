@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useState, useCallback } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 
-const Steppe = () => {
+const Steppe = ({ orderStatus }) => {
   const [step, setStep] = useState(1)
-  const [stepOne, setStepOne] = useState(1);
-  const [stepTwo, setStepTwo] = useState(2);
-  const [stepThree, setStepThree] = useState(3);
-  const [stepFour, setStepFOur] = useState(4);
 
   const handleProcessing = () => {
     setStep(1)
@@ -21,6 +18,29 @@ const Steppe = () => {
   const handleDelivered = () => {
     setStep(4)
   };
+console.log(orderStatus, "in the stepper component")
+
+  useFocusEffect(
+    useCallback(() => {
+      switch(Number(orderStatus)) {
+        case 106:
+         setStep(4)
+          break;
+        case 103:
+          setStep(2)
+          break;
+        case 104:
+          setStep(3)
+          break;
+        case 102 || 100 :
+          setStep(1)
+          break;
+        default:
+          setStep(1)
+          break;
+      }
+    }, [])
+  )
 
   return (
     <View style={styles.conatiner} >

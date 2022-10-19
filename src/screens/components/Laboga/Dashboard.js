@@ -84,7 +84,6 @@ const Dashboard = ({ navigation }) => {
   const gotoAllorders = () => {
     navigation.navigate("allorders")
   }
-  // allOrderDetails && console.log([Object.values(allOrderDetails)[2]], "allOrderDetails")
 
   return (
     <View style={styles.container} >
@@ -133,7 +132,7 @@ const Dashboard = ({ navigation }) => {
               orders && orders?.orders?.map((data, i) => {
                 return (
                   <View key={i} style={styles.single_order} >
-                    <SingleProduct product={data} />
+                    <SingleProduct product={data}  navigation={navigation}/>
                   </View>
 
                 )

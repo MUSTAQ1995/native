@@ -1,11 +1,21 @@
 import React from 'react'
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import StatusCode from '../../reuse/StatusCode';
+import { useNavigation } from '@react-navigation/native';
 
 
 const SingleProduct = ({
-  product
+  product, 
 }) => {
+
+const navigation = useNavigation();
+
+  const gotoOrderDetail = () => {
+    navigation.navigate("orderdetails", {
+      order_id: product.order_vendor_id
+    })
+  }
+
   return (
     <>
       <Text style={styles.order_id_text}>ORDER ID : {product.order_id}</Text>
@@ -13,7 +23,7 @@ const SingleProduct = ({
         product?.order_product.map((single_product, ind) => {
           return (
             <>
-              <TouchableOpacity key={ind} onPress={() => gotoAllorders()} >
+              <TouchableOpacity key={ind} onPress={() => gotoOrderDetail(product.order_vendor_id)} >
                 <View style={styles.product_details} >
                   <Image
                     style={styles.product_image}
