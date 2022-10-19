@@ -166,7 +166,6 @@ export const getOrderDetails = async (ind, ) => {
 } 
 
 export const getNewOrderDetails = async (ind, status) => {
-  console.log(status, "staus for delevery")
   try {
     const response = await axiosInstance(`order_list?index=${ind}&size=10&status=${status}`)
     return response;

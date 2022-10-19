@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { orderStatusUpdate } from '../../../../redux/actions/signup.action';
@@ -39,37 +40,41 @@ const StatusModal = ({
 }) => {
   const [status, setStatus] = useState(null);
   const [activeStatus, setActiveStatus] = useState(null);
-
+  const [NewOrderList, setNewOrderList] = useState([]);
   const handleUpdateStatus = (order) => {
-    console.log(order, " order Status update")
     setStatus(order.status_code)
     orderStatusUpdate({
-      "order_vendor_id":vendorID,
-      "status":order.status_code
-    }).then((res=>{
+      "order_vendor_id": vendorID,
+      "status": order.id
+    }).then((res => {
       console.log(res, "status updated response")
       setModalVisible(false)
     }))
-    .catch(error=>{
-      console.log(error, "Error whiel updateing the order Status")
-    })
+      .catch(error => {
+        console.log(error, "Error whiel updateing the order Status")
+      })
   };
-  console.log(orderStatus, "orderStatus in modal");
-  console.log(statusList, "status_list")
+  useFocusEffect(
+    useCallback(() => {
+      const ind = statusList.findIndex((elm) => elm.id == orderStatus)
+      const x= [...statusList]
+      setNewOrderList(x.splice(ind + 1))
+    }, [orderStatus])
+  );
+  
   return (
     <View style={styles.container} >
       <Text style={styles.processing}>PROCESSING</Text>
-      {statusList?.map((order, index) => {
+      {NewOrderList?.map((order, index) => {
         return (
-          order?.id > orderStatus &&
           <TouchableOpacity
-          key={index}
-            disabled={index == 1 ? false : true}
+            key={index}
+            disabled={index == 0 ? false : true}
             onPress={() => handleUpdateStatus(order)}
             style={styles.multy_status}
           >
             <Text style={styles.type_text} >{order.title}</Text>
-            <Text style={index == 1 ? styles.active_status : styles.deactive_status}>Select</Text>
+            <Text style={index == 0 ? styles.active_status : styles.deactive_status}>Select</Text>
           </TouchableOpacity>
         )
       })}

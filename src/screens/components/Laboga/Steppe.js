@@ -18,13 +18,12 @@ const Steppe = ({ orderStatus }) => {
   const handleDelivered = () => {
     setStep(4)
   };
-console.log(orderStatus, "in the stepper component")
 
   useFocusEffect(
     useCallback(() => {
-      switch(Number(orderStatus)) {
+      switch (Number(orderStatus)) {
         case 106:
-         setStep(4)
+          setStep(4)
           break;
         case 103:
           setStep(2)
@@ -32,7 +31,7 @@ console.log(orderStatus, "in the stepper component")
         case 104:
           setStep(3)
           break;
-        case 102 || 100 :
+        case 102 || 100:
           setStep(1)
           break;
         default:
@@ -44,71 +43,92 @@ console.log(orderStatus, "in the stepper component")
 
   return (
     <View style={styles.conatiner} >
-      <View style={styles.steps} >
-        {
-          step === 1 || step === 2 || step === 3 || step === 4 ?
-            <Image
-              style={styles.dot_circle}
-              source={require("../../../assets/lagoba_assets/dot.png")}
-            />
-            : <View style={styles.circle2} ></View>
-        }
-        <View style={[step > 1 ? styles.activeLine : styles.line1]} ></View>
-        {
-          step === 2 || step === 3 || step === 4 ?
-            <Image
-              style={styles.dot_circle}
-              source={require("../../../assets/lagoba_assets/dot.png")}
-            />
-            : <View style={styles.circle2} >
-              <View style={styles.inside_circle} ></View>
-            </View>
-        }
-        <View style={[step > 2 ? styles.activeLine : styles.line1]} ></View>
+      {orderStatus == 107 ?
+      <View>
+        <View style={styles.cancelOrder}>
+          <Image
+            style={styles.dot_circle}
+            source={require("../../../assets/lagoba_assets/dot.png")}
+          />
+          <View style={ styles.cancelactiveLine } ></View>
+          <Image
+            style={styles.dot_circle}
+            source={require("../../../assets/lagoba_assets/dot.png")}
+          />
+        </View>
+        <View style={styles.cancelledStatus}>
+          <Text style={styles.status_text} >Processing</Text>
+          <Text style={styles.status_text} >Cancelled</Text>
+        </View>
+        </View>
+        :
+        <>
+          <View style={styles.steps} >
+            {
+              step === 1 || step === 2 || step === 3 || step === 4 ?
+                <Image
+                  style={styles.dot_circle}
+                  source={require("../../../assets/lagoba_assets/dot.png")}
+                />
+                : <View style={styles.circle2} ></View>
+            }
+            <View style={[step > 1 ? styles.activeLine : styles.line1]} ></View>
+            {
+              step === 2 || step === 3 || step === 4 ?
+                <Image
+                  style={styles.dot_circle}
+                  source={require("../../../assets/lagoba_assets/dot.png")}
+                />
+                : <View style={styles.circle2} >
+                  <View style={styles.inside_circle} ></View>
+                </View>
+            }
+            <View style={[step > 2 ? styles.activeLine : styles.line1]} ></View>
 
-        {
-          step === 3 || step === 4 ?
-            <Image
-              style={styles.dot_circle}
-              source={require("../../../assets/lagoba_assets/dot.png")}
-            />
-            : <View style={styles.circle2} >
-              <View style={styles.inside_circle} ></View>
-            </View>
-        }
-        <View style={[step > 3 ? styles.activeLine : styles.line1]} ></View>
+            {
+              step === 3 || step === 4 ?
+                <Image
+                  style={styles.dot_circle}
+                  source={require("../../../assets/lagoba_assets/dot.png")}
+                />
+                : <View style={styles.circle2} >
+                  <View style={styles.inside_circle} ></View>
+                </View>
+            }
+            <View style={[step > 3 ? styles.activeLine : styles.line1]} ></View>
 
-        {
-          step === 4 ?
-            <Image
-              style={styles.dot_circle}
-              source={require("../../../assets/lagoba_assets/dot.png")}
-            />
-            : <View style={styles.circle2} >
-              <View style={styles.inside_circle} ></View>
-            </View>
-        }
-        
+            {
+              step === 4 ?
+                <Image
+                  style={styles.dot_circle}
+                  source={require("../../../assets/lagoba_assets/dot.png")}
+                />
+                : <View style={styles.circle2} >
+                  <View style={styles.inside_circle} ></View>
+                </View>
+            }
 
-      </View>
-      <View style={styles.step_status} >
-        <Text
-          onPress={() => handleProcessing()}
-          style={[step == 1 ? styles.active_text : styles.status_text]}
-        >Processing</Text>
-        <Text
-          onPress={() => handleShipped()}
-          style={[step == 2 ? styles.active_text : styles.status_text]}
-        >Shipped</Text>
-        <Text
-          onPress={() => handleOut()}
-          style={[step == 3 ? styles.active_text : styles.status_text]}
-        >Out for Delivery</Text>
-        <Text
-          onPress={() => handleDelivered()}
-          style={[step == 4 ? styles.active_text : styles.status_text]}
-        >Delivered</Text>
-      </View>
+
+          </View>
+          <View style={styles.step_status} >
+            <Text
+              onPress={() => handleProcessing()}
+              style={[step == 1 ? styles.active_text : styles.status_text]}
+            >Processing</Text>
+            <Text
+              onPress={() => handleShipped()}
+              style={[step == 2 ? styles.active_text : styles.status_text]}
+            >Shipped</Text>
+            <Text
+              onPress={() => handleOut()}
+              style={[step == 3 ? styles.active_text : styles.status_text]}
+            >Out for Delivery</Text>
+            <Text
+              onPress={() => handleDelivered()}
+              style={[step == 4 ? styles.active_text : styles.status_text]}
+            >Delivered</Text>
+          </View>
+        </>}
 
     </View>
   )
@@ -117,16 +137,16 @@ console.log(orderStatus, "in the stepper component")
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    marginTop:10,
+    marginTop: 10,
   },
   steps: {
     flexDirection: "row",
-    justifyContent:"center"
+    justifyContent: "center"
   },
   step_status: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop:5,
+    marginTop: 5,
   },
 
   line1: {
@@ -162,13 +182,27 @@ const styles = StyleSheet.create({
   status_text: {
     textAlign: "center",
     fontSize: 10,
-    color:"#57504B"
+    color: "#57504B"
   },
   active_text: {
     textAlign: "center",
     fontSize: 10,
     fontWeight: "bold",
-    color:"#57504B"
+    color: "#57504B"
+  },
+  cancelOrder:{
+    flexDirection:"row"
+  },
+  cancelactiveLine:{
+    width: "85%",
+    height: 1,
+    borderColor: "green",
+    borderWidth: 1,
+    marginTop: 10,
+  },
+  cancelledStatus:{
+    flexDirection:"row",
+    justifyContent:"space-between"
   }
 })
 export default Steppe

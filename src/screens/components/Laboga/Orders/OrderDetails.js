@@ -139,15 +139,18 @@ const OrderDetails = ({ navigation, route }) => {
                     <View style={styles.diff_prises}>
                       <Text style={styles.cost_text} >{` ${orderDetail?.currency} ${orderDetail?.sub_total}`}</Text>
                       {orderDetail?.discount == 0 ? null: <Text style={[styles.cost_text, { color: "red", }]}>{` ${orderDetail?.currency} ${orderDetail?.discount}`}</Text>}
-                      
                       <Text style={styles.cost_text} >{` ${orderDetail?.currency} ${orderDetail?.tax}`}</Text>
                       <Text style={[styles.cost_text, { color: "green" }]} >{` ${orderDetail?.currency} ${orderDetail?.shipping_charges}`}</Text>
                       <Text style={[styles.cost_text, { fontWeight: "bold" }]}>{` ${orderDetail?.currency} ${orderDetail?.total}`}</Text>
                     </View>
                   </View>
-                  <TouchableOpacity style={styles.update_status} onPress={() => openModal()} >
+                  {
+                    orderDetail.status < 106 &&  
+                    <TouchableOpacity style={styles.update_status} onPress={() => openModal()} >
                     <Text style={styles.update_status_text} >UPDATE STATUS</Text>
                   </TouchableOpacity>
+                  }
+                  
                 </View>
 
               </View>
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
     marginTop: 31,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
   cost_types: {
 

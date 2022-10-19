@@ -32,9 +32,6 @@ const CountryValidation = Yup.object().shape({
   )
 })
 
-const createQuestion = () => {
-  text: ""
-}
 
 const MultipleCountries = () => {
 
@@ -47,7 +44,6 @@ const MultipleCountries = () => {
   }
 
   const selectCountry = (country) => {
-    console.log(country, 'backend')
     const newCountry = [...activeCountries];
     const ind = newCountry.findIndex((element) => (element.id == country.id))
     if (ind == -1) {
