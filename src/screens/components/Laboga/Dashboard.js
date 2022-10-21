@@ -13,6 +13,7 @@ import { getNewOrderDetails, getOrderDetails, ordersHomePageDetails } from '../.
 import Popup from './Popup';
 import { useFocusEffect } from '@react-navigation/native';
 import SingleProduct from "./SingleProduct";
+import Loader from './Reusable/Loader';
 
 const topBarDetails = [
   {
@@ -124,7 +125,7 @@ const Dashboard = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {
-        isLoading ? <ActivityIndicator size="large" color="#D0A765"/> :
+        isLoading ?<Loader/> :
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scroll_view} >

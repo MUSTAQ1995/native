@@ -29,7 +29,7 @@ export const Navigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName='Login'
+      initialRouteName='bottomtabs'
       screenOptions={{
         headerTintColor: "#57504B",
       }}

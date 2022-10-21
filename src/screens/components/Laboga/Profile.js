@@ -4,6 +4,7 @@ import { get_profile, log_out } from '../../../redux/actions/signup.action';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getToken } from '../../../services/config';
+import Loader from './Reusable/Loader';
 
 
 const Content = [
@@ -53,7 +54,7 @@ const Profile = ({ navigation }) => {
 
   const handleLogout = async () => {
     const token = await getToken();
-    token && log_out({"token": token })
+    token && log_out({ "token": token })
       .then((res) => {
         if (res.data.status === true) {
           AsyncStorage.clear();
@@ -61,7 +62,7 @@ const Profile = ({ navigation }) => {
           Alert.alert(res.data.response.message)
         }
       })
-      .catch(e=>{
+      .catch(e => {
         console.log(e, "logout failed")
       })
   }
@@ -88,14 +89,15 @@ const Profile = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container} >
+    <>
+    {!userDetails ? <Loader/> : <View style={styles.container} >
       <View style={styles.header} >
         <Image
           source={require("../../../assets/lagoba_assets/logo_white.png")}
           style={styles.logo}
         />
       </View>
-      {userDetails && <View style={styles.profile_details} >
+       <View style={styles.profile_details} >
         <View style={styles.profile_pic} ></View>
         <View style={styles.name} >
           <Text style={styles.user_name} >{userDetails.response.first_name} {userDetails.response.last_name}</Text>
@@ -107,17 +109,17 @@ const Profile = ({ navigation }) => {
             onPress={() => handleEditProfile()}
           >Edit</Text>
         </View>
-      </View>}
+      </View>
       <View style={styles.body} >
         <View style={styles.list_item} >
           {Content.map((list, id) => {
             return (
               <TouchableOpacity
-                key={id} style={styles.listing_data} 
-                
+                key={id} style={styles.listing_data}
+
                 onPress={() => handleNavigate(list)}>
                 <Text
-                 
+
                   style={styles.name} >{list?.name}</Text>
                 <Image
                   source={require("../../../assets/lagoba_assets/right_arrow.png")}
@@ -136,7 +138,9 @@ const Profile = ({ navigation }) => {
           <Text style={styles.trans_eng} >English</Text>
         </View>
       </View>
-    </View>
+    </View> }
+   
+    </>
   )
 };
 

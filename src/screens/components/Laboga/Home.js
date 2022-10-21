@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react'
+import { View, StyleSheet, Image,   } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from "react-native-device-info";
-import { push_notification } from '../../../redux/actions/signup.action';
+import { getProductList, push_notification } from '../../../redux/actions/signup.action';
 import EmptyProduct from './EmptyProduct';
+import { useFocusEffect } from '@react-navigation/native';
+import Loader from './Reusable/Loader';
+import MyProduct from './ProductDetails/MyProduct';
 
 const Home = ({ navigation }) => {
 
@@ -12,11 +15,22 @@ const Home = ({ navigation }) => {
   const [fcm_token, setFcmToken] = useState(null);
   const [brandModal, setBrandModel] = useState(null);
   const [api_token, setApiToken] = useState(null)
-  const handelAddProjects = () => {
-    navigation.navigate("addproducts");
-    console.log("Navigate ti the add product page")
-  };
+  const [productList, setProductLIst] = useState(null);
 
+
+
+  useFocusEffect(
+    useCallback(() => {
+      getProductList(1)
+        .then(res => {
+          setProductLIst(res.data.response.products)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }, [])
+  )
+  
   // ------------------------------------------------------------
 
   // side-effects:
@@ -52,7 +66,6 @@ const Home = ({ navigation }) => {
   const getToken = async () => {
     try {
       const value = await AsyncStorage.getItem("token")
-     
       if (value !== null) {
         setApiToken(value)
         console.log(value, "token from the api")
@@ -92,9 +105,9 @@ const Home = ({ navigation }) => {
           style={styles.logo}
         />
       </View>
-    <View>
-      <EmptyProduct/>
-    </View>
+       {!productList ? <Loader /> :
+            productList.length == 0 ? <EmptyProduct /> : <MyProduct/>
+          }
     </View>
   )
 };
@@ -103,7 +116,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 16,
     backgroundColor: "#FFF"
   },
   header: {
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
   body: {
     alignItems: "center",
   },
-  
+
 })
 
 export default Home

@@ -193,3 +193,13 @@ export const orderStatusUpdate = async (data) => {
     console.log(error, "Failed to update the status")
   }
 }
+
+export const getProductList = async (id) => {
+  try{
+    const response = await axiosInstance.get(`product_list?category_id=${id}`)
+    return response;
+  }
+  catch(error){
+    console.log(error, "Error while getting Product list.")
+  }
+}
