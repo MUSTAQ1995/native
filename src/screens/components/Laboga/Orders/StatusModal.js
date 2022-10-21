@@ -61,10 +61,9 @@ const StatusModal = ({
       setNewOrderList(x.splice(ind + 1))
     }, [orderStatus])
   );
-  
+
   return (
     <View style={styles.container} >
-      <Text style={styles.processing}>PROCESSING</Text>
       {NewOrderList?.map((order, index) => {
         return (
           <TouchableOpacity

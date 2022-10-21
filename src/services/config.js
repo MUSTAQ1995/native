@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const HOST = "https://staging-api.laboga.com/app/vendor_v01/api/"; 
-// const HOST : string = "https://api.laboga.com/app/v0_1/api/"; 
+// const HOST = http://35.154.4.154/la_boga/app/vendor_v01/api/
+
 const USERNAME = "";
 const PASSWORD  = "";
 

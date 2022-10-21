@@ -3,9 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-n
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from "react-native-device-info";
 import { push_notification } from '../../../redux/actions/signup.action';
-import EmptyProduct from './EmptyProduct';
 
-const Home = ({ navigation }) => {
+const EmptyProduct = ({ navigation }) => {
 
   // states:
   const [uniqueID, setUniqueID] = useState(null);
@@ -86,15 +85,31 @@ const Home = ({ navigation }) => {
   // JSX:
   return (
     <View style={styles.container} >
-      <View style={styles.header} >
+     {/* <View style={styles.header} >
         <Image
           source={require("../../../assets/lagoba_assets/logo_white.png")}
           style={styles.logo}
         />
+      </View> */}
+      {/* <Button
+        title="Push"
+        onPress={() => notiFication()}
+      /> */}
+      <View style={styles.body} >
+        <Image
+          style={styles.cloth_hanger}
+          source={require("../../../assets/lagoba_assets/clothes-hanger.png")}
+        />
+        <Text style={styles.looks_empty} >Looks Empty</Text>
+        <Text style={styles.add_some_products} >let's add some products</Text>
+        <TouchableOpacity
+          style={styles.add_products}
+          onPress={handelAddProjects} >
+          <Text style={styles.add_product_text} >
+            ADD PRODUCTS
+          </Text>
+        </TouchableOpacity>
       </View>
-    <View>
-      <EmptyProduct/>
-    </View>
     </View>
   )
 };
@@ -117,7 +132,44 @@ const styles = StyleSheet.create({
   body: {
     alignItems: "center",
   },
-  
+  cloth_hanger: {
+    height: 83.5,
+    width: 112,
+    marginTop: 124,
+  },
+  looks_empty: {
+    width: 132,
+    // height:23,
+    marginTop: 21.6,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#57504B",
+    textAlign: "center"
+  },
+  add_some_products: {
+    marginTop: 5,
+    width: 194,
+    height: 18,
+    fontSize: 16,
+    color: "#57504B",
+    textAlign: "center",
+    fontWeight: "600"
+  },
+  add_products: {
+    marginTop: 86,
+    height: 56,
+    width: 188,
+    backgroundColor: "#F2E7D3",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  add_product_text: {
+
+    height: 15,
+    width: 116,
+    color: "#57504B",
+    fontWeight: "bold"
+  }
 })
 
-export default Home
+export default EmptyProduct
