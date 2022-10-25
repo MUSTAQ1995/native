@@ -202,4 +202,15 @@ export const getProductList = async (id) => {
   catch(error){
     console.log(error, "Error while getting Product list.")
   }
+};
+
+// single product detail:
+export const getSingleProductDetails = async (id) => {
+  try {
+    const response = await axiosInstance.get(`edit_product?parent_sku=${id}`)
+    return response;
+  }
+  catch(error) {
+    console.log(error, "Single Product detail Error")
+  }
 }

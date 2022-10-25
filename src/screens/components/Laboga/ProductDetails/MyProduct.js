@@ -6,7 +6,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const Tab = createMaterialTopTabNavigator();
 
-const MyProduct = () => {
+const MyProduct = ({productList}) => {
+  
   return (
     <Tab.Navigator
       initialRouteName='neworders'
@@ -19,7 +20,8 @@ const MyProduct = () => {
     >
       <Tab.Screen
         name="abayas"
-        component={Abaya}
+        // component={Abaya}
+        children={() => <Abaya productList={productList} />}
         options={{ tabBarLabel: "Abaya" }}
       />
       <Tab.Screen

@@ -1,101 +1,45 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet,Image, TouchableOpacity } from 'react-native';
-// import { Card } from "react-native-p"
+import { useNavigation } from '@react-navigation/native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
-
-const Abaya = ({ navigation }) => {
+const Abaya = ({  productList }) => {
+  const navigation = useNavigation()
 
 
-  const gotoSingleProduct = () => {
-    navigation.navigate("singleproduct")
-    // console.log("Dingel product details")
+  const gotoSingleProduct = (parent_sku) => {
+    navigation.navigate("singleproduct", {productID:parent_sku  })
   };
+
   return (
     <View style={styles.container}>
       <FlatList 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.grid}
         numColumns={2}
-        data={DATA}
+        data={productList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => {
           return(
             <TouchableOpacity 
               style={styles.item} 
-              onPress={() => gotoSingleProduct()}
+              onPress={() => gotoSingleProduct(item.parent_sku)}
             >
             <View >
               <Image 
-                source={require("../../../../assets/lagoba_assets/bckgn.png")}
+                source={{
+                  uri: item?.image
+                }}
                 style={styles.pic}
               />
-              <Text style={styles.mannat} >Mannat</Text>
-              <Text style={styles.category} >Printed Solid Border Blue Hijab</Text>
-              <Text style={styles.price}>$745</Text>
+              <Text style={styles.mannat} >{item.title}</Text>
+              <Text style={styles.category} >{item.discription}</Text>
+              <Text style={styles.price}>{item.currency} {item.price}</Text>
             </View>
             </TouchableOpacity>
           )
         }}
 
       />
-      <View style={styles.sort_filter} >
-        <View style={{
-          flexDirection:"row",
-          justifyContent:"center",
-        }}>
-          <Image
-            source={require("../../../../assets/lagoba_assets/sort.png")}
-            style={{
-              height:18,
-              width:13.44,
-              marginRight:11
-            }}
-          />
-          <Text>Sort</Text>
-        </View>
-        <View
-        style={{
-          flexDirection:"row",
-          justifyContent:"center",
-        }}
-        >
-          <Image
-            source={require("../../../../assets/lagoba_assets/sort.png")}
-            style={{
-              height:18,
-              width:13.44,
-              marginRight:11
-            }}
-          />
-          <Text >Filter</Text>
-        </View>
-      </View>
     </View>
   )
 }
@@ -110,13 +54,10 @@ const styles = StyleSheet.create({
     width:"50%",
     marginTop:26,
     paddingHorizontal:8,
-    // backgroundColor:"lightgray"
   },
   grid:{
-    // marginTop:26,
     paddingHorizontal:16,
     alignItems:"center",
-    // height:557
   },
   pic:{
     height:207,
@@ -143,18 +84,6 @@ const styles = StyleSheet.create({
     color:"#57504B",
     fontWeight:"bold",
   },
-  sort_filter:{
-   height:58,
-   position:"absolute",
-   bottom:0,
-   flexDirection:"row",
-   borderTopWidth:1,
-   borderTopColor:"#0000001C",
-   alignItems:"center",
-   justifyContent:"space-around",
-   width:"100%", 
-  backgroundColor:"#fff"
-  }
 })
 
 export default Abaya

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { View, StyleSheet, Image,   } from 'react-native';
+import { View, StyleSheet, Image, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from "react-native-device-info";
 import { getProductList, push_notification } from '../../../redux/actions/signup.action';
@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
         })
     }, [])
   )
-  
+
   // ------------------------------------------------------------
 
   // side-effects:
@@ -105,9 +105,9 @@ const Home = ({ navigation }) => {
           style={styles.logo}
         />
       </View>
-       {!productList ? <Loader /> :
-            productList.length == 0 ? <EmptyProduct /> : <MyProduct/>
-          }
+      {!productList ? <Loader /> :
+        productList.length == 0 ? <EmptyProduct /> : <MyProduct productList={productList} />
+      }
     </View>
   )
 };
@@ -128,8 +128,7 @@ const styles = StyleSheet.create({
   },
   body: {
     alignItems: "center",
-  },
-
+  }
 })
 
 export default Home

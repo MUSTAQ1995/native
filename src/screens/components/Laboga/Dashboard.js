@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getNewOrderDetails, getOrderDetails, ordersHomePageDetails } from '../../../redux/actions/signup.action';
@@ -33,7 +32,6 @@ const topBarDetails = [
   },
 ];
 
-const ImageCount = 8;
 const Dashboard = ({ navigation }) => {
 
   const [allOrderDetails, setAllorderDetails] = useState(null);
@@ -61,7 +59,7 @@ const Dashboard = ({ navigation }) => {
         setIsLodaing(false)
       })
       .catch(error => {
-        console.log(error, "error in orderlist")
+        console.log(error, "error in orderlist error")
       })
   }
 

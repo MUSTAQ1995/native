@@ -1,130 +1,157 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Image,
+  ActivityIndicator
 } from 'react-native';
-import StarRating from "react-native-star-rating"
+import StarRating from "react-native-star-rating";
+import { useFocusEffect } from '@react-navigation/native';
+import { getSingleProductDetails } from '../../../../redux/actions/signup.action';
+import Loader from '../Reusable/Loader';
 
-const SingleProductDetails = () => {
+const SingleProductDetails = ({ route }) => {
 
   const [selectedColor, setSelectedColor] = useState();
-  const [starCount, setStarCount] = useState(3.5)
+  const [starCount, setStarCount] = useState(3.5);
+  const [singleProductDetails, setSingleProductDetails] = useState(null)
+
+  const { productID } = route.params;
+  console.log(productID, "productID");
+
+  useFocusEffect(
+    useCallback(() => {
+      getSingleProductDetails(productID)
+        .then(res => {
+          console.log(res.data.response, "single product details")
+          setSingleProductDetails(res.data.response)
+        })
+        .catch(error => {
+          console.log(error, "Error in Single Project Details")
+        })
+    }, [])
+  )
   return (
-    <View style={styles.container} >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scroll_view}
-      >
-        <Image
-          style={styles.product_image}
-          source={require("../../../../assets/lagoba_assets/bckgn.png")}
-        />
-        {/* <Text>My product OrderDetails</Text> */}
-        <View style={styles.product_details} >
-          <Text style={styles.product_name} >Mannat</Text>
-          <Text style={styles.product_category} >Printed Solid Border Blue Hijab</Text>
-          <View style={styles.price_share} >
-            <Text style={styles.price} >SAR 500</Text>
-            <View style={styles.icons} >
-              <Image
-                source={require("../../../../assets/lagoba_assets/heart.png")}
-                style={styles.heart}
-              />
-              <Image
-                source={require("../../../../assets/lagoba_assets/share.png")}
-                style={styles.share}
-              />
-            </View>
-          </View>
-          <Text style={styles.colors_text} >COLORS</Text>
-          <View style={styles.multi_color} >
+    <>
+      {
+        singleProductDetails ?
+
+          <View style={styles.container} >
             <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{
-                width: "100%"
-              }}
+              showsVerticalScrollIndicator={false}
+              style={styles.scroll_view}
             >
-              {
-                Array(8).fill().map((data, i) => {
-                  return (
-                    <View key={i} style={styles.select_colors} >
-                      <View style={styles.specific_color} ></View>
-                    </View>
-                  )
-                })
-              }
-              {/* <View style={styles.select_colors} >
-              <View style={styles.specific_color} ></View>
-            </View>
-            <View style={styles.select_colors} >
-              <View style={styles.specific_color} ></View>
-            </View>
-            <View style={styles.select_colors} >
-              <View style={styles.specific_color} ></View>
-            </View> */}
-            </ScrollView>
-          </View>
-          <View style={styles.basic_details} >
-            <Text style={styles.basic_details_text}>BASIC DETAILS</Text>
-            <View style={{ height: 148, }} >
-              <Text style={styles.fabric} >Fabric: Viscose Cotton</Text>
-              <Text style={styles.fabric} >Length 187 cm, width 84 cm </Text>
+              <Image
+                style={styles.product_image}
+                source={require("../../../../assets/lagoba_assets/bckgn.png")}
+              />
+              {/* source={{
+            uri: singleProductDetails?.image
+          }} */}
+              <View style={styles.product_details} >
+                <Text style={styles.product_name} >{singleProductDetails.title}</Text>
+                <Text style={styles.product_category} >{singleProductDetails.description}</Text>
+                <View style={styles.price_share} >
+                  <Text style={styles.price} >SAR 500</Text>
+                  <View style={styles.icons} >
+                    <Image
+                      source={require("../../../../assets/lagoba_assets/heart.png")}
+                      style={styles.heart}
+                    />
+                    <Image
+                      source={require("../../../../assets/lagoba_assets/share.png")}
+                      style={styles.share}
+                    />
+                  </View>
+                </View>
+                <Text style={styles.colors_text} >COLORS</Text>
+                <View style={styles.multi_color} >
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={{
+                      width: "100%"
+                    }}
+                  >
+                    {
+                      Array(8).fill().map((data, i) => {
+                        return (
+                          <View key={i} style={styles.select_colors} >
+                            <View style={styles.specific_color} ></View>
+                          </View>
+                        )
+                      })
+                    }
+                  </ScrollView>
+                </View>
+                <View style={styles.basic_details} >
+                  <Text style={styles.basic_details_text}>BASIC DETAILS</Text>
+                  <View style={{ height: 148, }} >
+                    {singleProductDetails.attributes.map((attributes, i) => {
+                      return (
+                        <Text key={attributes.id} style={styles.fabric} >{attributes.title}: {attributes.value}</Text>
+                      )
+                    })}
+
+                    {/* <Text style={styles.fabric} >Length 187 cm, width 84 cm </Text>
               <Text style={styles.fabric} >
                 The item is without the accessories (Hijab Cap and Hijab pins) worn by the model.
               </Text>
               <Text style={styles.fabric} >
                 Colours displayed may vary slightly due to changes in lighting.
-              </Text>
-            </View>
-          </View>
-          <View style={styles.reviews} >
-            <Text style={styles.reviews_text} >REVIEWS</Text>
-            <View style={{ width: 100, height: 30 }} >
-              <StarRating
-                disabled={false}
-                emptyStar={'ios-star-outline'}
-                fullStar={'ios-star'}
-                halfStar={'ios-star-half'}
-                iconSet={'Ionicons'}
-                maxStars={5}
-                rating={starCount}
-                fullStarColor={'red'}
-                selectedStar={(rating) => setStarCount(rating)}
-              />
-            </View>
-            <View style={styles.comments} >
-              <View style={styles.users_first_letter} >
-                <Text style={styles.first_letter} >S</Text>
-              </View>
-              <View style={styles.users_data} >
-                <Text style={styles.user_name} >Sehnaaz Khan</Text>
-                <View style={{ width: 100, height: 30,marginTop:7, }} >
-                  <StarRating
-                    disabled={false}
-                    emptyStar={'ios-star-outline'}
-                    fullStar={'ios-star'}
-                    halfStar={'ios-star-half'}
-                    iconSet={'Ionicons'}
-                    maxStars={5}
-                    rating={starCount}
-                    fullStarColor={'red'}
-                    selectedStar={(rating) => setStarCount(rating)}
-                  />
+              </Text> */}
+                  </View>
                 </View>
-                <Text style={styles.comment}>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                  sed diam nonumy eirmod tempor 
-                </Text>
+                <View style={styles.reviews} >
+                  <Text style={styles.reviews_text} >REVIEWS</Text>
+                  <View style={{ width: 100, height: 30 }} >
+                    <StarRating
+                      disabled={false}
+                      emptyStar={'ios-star-outline'}
+                      fullStar={'ios-star'}
+                      halfStar={'ios-star-half'}
+                      iconSet={'Ionicons'}
+                      maxStars={5}
+                      rating={starCount}
+                      fullStarColor={'red'}
+                      selectedStar={(rating) => setStarCount(rating)}
+                    />
+                  </View>
+                  <View style={styles.comments} >
+                    <View style={styles.users_first_letter} >
+                      <Text style={styles.first_letter} >S</Text>
+                    </View>
+                    <View style={styles.users_data} >
+                      <Text style={styles.user_name} >Sehnaaz Khan</Text>
+                      <View style={{ width: 100, height: 30, marginTop: 7, }} >
+                        <StarRating
+                          disabled={false}
+                          emptyStar={'ios-star-outline'}
+                          fullStar={'ios-star'}
+                          halfStar={'ios-star-half'}
+                          iconSet={'Ionicons'}
+                          maxStars={5}
+                          rating={starCount}
+                          fullStarColor={'red'}
+                          selectedStar={(rating) => setStarCount(rating)}
+                        />
+                      </View>
+                      <Text style={styles.comment}>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                        sed diam nonumy eirmod tempor
+                      </Text>
+                    </View>
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+            </ScrollView>
+          </View> :
+          <Loader/>
+
+  }
+    </>
   )
 };
 
@@ -236,43 +263,43 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1.2
   },
-  comments:{
-    height:120,
-    marginTop:19,
-    flexDirection:"row",
-    marginBottom:50
+  comments: {
+    height: 120,
+    marginTop: 19,
+    flexDirection: "row",
+    marginBottom: 50
   },
-  users_first_letter:{
-    height:45,
-    width:45,
-    borderRadius:22.5,
-    backgroundColor:"#E2D7C2",
-    alignItems:"center",
-    justifyContent:"center",
+  users_first_letter: {
+    height: 45,
+    width: 45,
+    borderRadius: 22.5,
+    backgroundColor: "#E2D7C2",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  first_letter:{
+  first_letter: {
     // height:33,
-    fontSize:24,
-    color:"#fff",
-    fontWeight:"bold"
+    fontSize: 24,
+    color: "#fff",
+    fontWeight: "bold"
   },
-  users_data:{
-    marginLeft:24,
-    marginTop:3,
-    flex:0.9
+  users_data: {
+    marginLeft: 24,
+    marginTop: 3,
+    flex: 0.9
   },
-  user_name:{
-    height:16,
-    fontSize:14,
-    color:"#57504B",
-    fontWeight:"bold" 
+  user_name: {
+    height: 16,
+    fontSize: 14,
+    color: "#57504B",
+    fontWeight: "bold"
   },
-  comment:{
-    marginTop:7,
-    color:"#726D69",
-    fontSize:14,
-    fontWeight:"bold",
-    height:69
+  comment: {
+    marginTop: 7,
+    color: "#726D69",
+    fontSize: 14,
+    fontWeight: "bold",
+    height: 69
   }
 });
 

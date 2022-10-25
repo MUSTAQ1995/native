@@ -5,11 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const SingleProduct = ({
-  product, 
+  product, route
 }) => {
 
 const navigation = useNavigation();
-
+// const {id} = route.params;
   const gotoOrderDetail = () => {
     navigation.navigate("orderdetails", {
       order_id: product.order_vendor_id
