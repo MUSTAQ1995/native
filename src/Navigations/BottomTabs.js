@@ -25,7 +25,7 @@ const BottomTabs = ({route}) => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor:"black",
+        tabBarActiveTintColor:"#F2E7D3",
         tabBarInactiveTintColor: "gray",
       })}
     >

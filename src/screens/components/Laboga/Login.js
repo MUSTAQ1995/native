@@ -52,7 +52,6 @@ const Login = ({ navigation, route }) => {
         formikRef.current.setErrors({});
         formikRef.current.setFieldValue("mobileNumber", phoneNumber);
         formikRef.current.setFieldTouched("mobileNumber", false)
-        // setIsDisable(false)
       }
     })
   }, [navigation, initialData]);
@@ -102,10 +101,6 @@ const Login = ({ navigation, route }) => {
     } else {
       Alert.alert("Enter Proper Number")
     }
-    // navigation.navigate("verify", {
-    //   code: countryCallingCode,
-    //   number: phoneNumber,
-    // });
   };
 
 

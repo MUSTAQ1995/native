@@ -153,6 +153,7 @@ const Verify = ({ route, navigation }) => {
                 numberOfInputs={6}
                 defaultValue=""
                 secureTextEntry={true}
+                keyboardType="numeric"
                 style={{
                   display: "flex",
                   flexDirection: "row",
