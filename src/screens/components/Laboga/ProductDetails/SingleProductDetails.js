@@ -21,6 +21,9 @@ const SingleProductDetails = ({ route }) => {
   const { productID } = route.params;
   console.log(productID, "productID");
 
+  const Variations = singleProductDetails && singleProductDetails.variation.map((vari, inde)=> vari)
+  const VariationCountry = Variations?.map((Country, indi) => Country?.country);
+  Variations && console.log(Variations[0]?.image[0].image, "VariationsVariations ")
   useFocusEffect(
     useCallback(() => {
       getSingleProductDetails(productID)
@@ -45,7 +48,10 @@ const SingleProductDetails = ({ route }) => {
             >
               <Image
                 style={styles.product_image}
-                source={require("../../../../assets/lagoba_assets/bckgn.png")}
+                // source={require("../../../../assets/lagoba_assets/bckgn.png")}
+                source={{
+                  uri:Variations[0]?.image[0]?.image
+                }}
               />
               {/* source={{
             uri: singleProductDetails?.image
@@ -54,7 +60,7 @@ const SingleProductDetails = ({ route }) => {
                 <Text style={styles.product_name} >{singleProductDetails.title}</Text>
                 <Text style={styles.product_category} >{singleProductDetails.description}</Text>
                 <View style={styles.price_share} >
-                  <Text style={styles.price} >SAR 500</Text>
+                  <Text style={styles.price} >{VariationCountry[0]?.[0].currency_title} {VariationCountry[0]?.[0].price}</Text>
                   <View style={styles.icons} >
                     <Image
                       source={require("../../../../assets/lagoba_assets/heart.png")}
@@ -76,10 +82,10 @@ const SingleProductDetails = ({ route }) => {
                     }}
                   >
                     {
-                      Array(8).fill().map((data, i) => {
+                      singleProductDetails && singleProductDetails.variation.map((data, i) => {
                         return (
                           <View key={i} style={styles.select_colors} >
-                            <View style={styles.specific_color} ></View>
+                            <View style={[styles.specific_color, { backgroundColor:data?.variation_value}]} ></View>
                           </View>
                         )
                       })
@@ -235,7 +241,6 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     borderRadius: 12,
-    backgroundColor: "#E2D7C2"
   },
   basic_details: {},
   basic_details_text: {

@@ -4,18 +4,20 @@ import CustomDivider from '../Reusable/CustomDivider';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-const WithColors = () => {
+const WithColors = ({
+  route
+}) => {
 
   // states:
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(["apple"]);
   const [items, setItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-    { label: 'Mango', value: 'mango' },
-    { label: 'Grapes', value: 'grape' },
-    { label: 'Jackfruit', value: 'jackfruit' },
-    { label: 'naa', value: 'anana' }
+    { label: 'Red', value: '1' },
+    { label: 'Black', value: '2' },
+    { label: 'Blue', value: '3' },
+    { label: 'Green', value: '4' },
+    { label: 'Orange', value: '5' },
+    { label: 'Purple', value: '6' }
   ]);
   const [imageDetails, setImageDetails] = useState([]);
   const [price, setPrice] = useState(null);

@@ -6,10 +6,13 @@ import WithColors from './WithColors';
 import WithoutColors from './WithoutColors';
 
 
-const AddProductDetails = ({ navigation }) => {
+const AddProductDetails = ({ navigation, route }) => {
+
+  const { values,} = route.params;
   const [value, setValue] = useState("Yes");
   const [ colors, setColors ] = useState(true)
 
+  console.log(values, "values from the parent")
   const handleChange = (value) => {
     setValue(value);
 

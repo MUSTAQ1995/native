@@ -214,3 +214,25 @@ export const getSingleProductDetails = async (id) => {
     console.log(error, "Single Product detail Error")
   }
 }
+
+// delete product:
+export const deleteProduct = async (id) => {
+  try {
+    const response = await axiosInstance.get(`delete_product?parent_sku=${id}`)
+    return response;
+  }
+  catch(error){
+    console.log(error, "Error in deleting Product")
+  }
+};
+
+// insert a product:
+export const addProduct = async (data) => {
+  try{
+    const response = await axiosInstance.post("insert_product", data)
+    return response
+  }
+  catch(error){
+    console.log(error, "Error while adding product")
+  }
+}

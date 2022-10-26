@@ -5,22 +5,53 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView, StatusBar,
-} from 'react-native'
+} from 'react-native';
+import { useFormik } from 'formik';
+import * as Yup from "yup";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { TextInput } from 'react-native-gesture-handler';
 
 const AddProduct = ({ navigation }) => {
   // states:
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(["apple"]);
   const [items, setItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-    { label: 'Mango', value: 'mango' },
-    { label: 'Grapes', value: 'grape' },
-    { label: 'Jackfruit', value: 'jackfruit' },
-    { label: 'naa', value: 'anana' }
+    { label: 'Abaya', value: '1' },
+    { label: 'Dresses', value: '2' },
+    // { label: 'Mango', value: 'mango' },
+    // { label: 'Grapes', value: 'grape' },
+    // { label: 'Jackfruit', value: 'jackfruit' },
+    // { label: 'naa', value: 'anana' }
   ]);
+
+  const validation = Yup.object().shape({
+    category_id: Yup.string(),
+    // .required("Select a Category"),
+    title: Yup.string().required("Field is Required"),
+    ar_title: Yup.string().required("Field is Required"),
+    description: Yup.string().required("Field is Required"),
+    ar_description: Yup.string().required("Field is Required"),
+    variation: Yup.array()
+  })
+
+  const initialValues = {
+    category_id: "",
+    title: "",
+    ar_title: "",
+    description: "",
+    ar_description: "",
+    variation: [],
+  };
+
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: validation,
+    onSubmit: values => {
+      console.log(values, "formik values")
+      navigation.navigate("productdetails", {values: values})
+      // console.log(value, "value of the dropdown")
+    }
+  })
 
   const [titleEng, setTitleEng] = useState("");
   const [titleArb, setTitleArb] = useState("");
@@ -62,17 +93,22 @@ const AddProduct = ({ navigation }) => {
                 borderColor: "lightgray",
               }}
               open={open}
-              value={value}
+              value={formik.values.category_id}
               items={items}
               setOpen={setOpen}
-              setValue={setValue}
               setItems={setItems}
-              theme="LIGHT"
-              multiple={true}
-              mode="BADGE"
+              onSelectItem={({value})=>{
+                formik.setFieldValue('category_id',value);
+              }}
               autoScroll={true}
-              badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
+              
+              // theme="LIGHT"
+              // // multiple={true}
+              // mode="BADGE"
+              // autoScroll={true}
+              // badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
             />
+            {formik.touched.category_id && formik.errors.category_id && <Text style={styles.error} >{formik.errors.category_id}</Text>}
           </View>
           <View style={styles.lineTwo} ></View>
           <View style={styles.title} >
@@ -81,21 +117,29 @@ const AddProduct = ({ navigation }) => {
           <View style={styles.english} >
             <Text style={styles.english_text} >IN ENGLISH</Text>
             <TextInput
+              name="title"
+              id="title"
               style={styles.eng_inut}
-              defaultValue={titleEng}
-              placeholder="Enter Title"
-              onChangeText={(text) => console.log(text, "text")}
+              value={formik.values.title}
+              onBlur={formik.handleBlur('title')}
+              placeholder="Enter English Title"
+              onChangeText={formik.handleChange("title")}
             />
+            {formik.touched.title && formik.errors.title && <Text style={styles.error} >{formik.errors.title}</Text>}
           </View>
           <View style={styles.arabic} >
             <Text style={styles.english_text} >IN ARABIC</Text>
             <TextInput
+              name="ar_title"
+              id="ar_title"
               style={styles.eng_inut}
-              defaultValue={titleEng}
-              placeholder="Enter Title"
-              onChangeText={(text) => console.log(text, "text")}
-            // onChange={(text)=> console.log(text, "text")}
+              // defaultValue={titleEng}
+              value={formik.values.ar_title}
+              onBlur={formik.handleBlur('ar_title')}
+              placeholder="Enter Arabic Title"
+              onChangeText={formik.handleChange("ar_title")}
             />
+            {formik.touched.ar_title && formik.errors.ar_title && <Text style={styles.error} >{formik.errors.ar_title}</Text>}
           </View>
           <View style={styles.lineTwo} ></View>
           <Text style={styles.product_dsc} >Product Description</Text>
@@ -103,23 +147,36 @@ const AddProduct = ({ navigation }) => {
             <View>
               <Text style={styles.dsc_eng} > IN ENGLISH </Text>
               <TextInput
+                name="description"
+                id="description"
                 style={[styles.text_area]}
                 multiline
                 numberOfLines={5}
                 placeholder="Enter Description"
+                value={formik.values.description}
+                onBlur={formik.handleBlur('description')}
+                onChangeText={formik.handleChange("description")}
               />
+              {formik.touched.description && formik.errors.description && <Text style={styles.error} >{formik.errors.description}</Text>}
             </View>
             <View style={styles.arabic_dsc}>
               <Text style={styles.dsc_arb} > IN ARABIC </Text>
               <TextInput
+                name="ar_description"
+                id="ar_description"
                 style={styles.text_area}
                 multiline
                 numberOfLines={5}
                 placeholder="Enter Description"
+                value={formik.values.ar_description}
+                onBlur={formik.handleBlur('ar_description')}
+                onChangeText={formik.handleChange("ar_description")}
               />
+              {formik.touched.ar_description && formik.errors.ar_description && <Text style={styles.error} >{formik.errors.ar_description}</Text>}
             </View>
             <TouchableOpacity
-              onPress={() => handleProductDetails()}
+              // onPress={() => handleProductDetails()}
+              onPress={() => formik.handleSubmit()}
               style={styles.continue} >
               <Text style={{
                 color: "#57504B",
@@ -145,7 +202,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     backgroundColor: "#fff",
-    width:"100%"
+    width: "100%"
   },
   steps: {
     marginTop: 27,
@@ -154,7 +211,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal:20,
+    marginHorizontal: 20,
     // position:"relative"
   },
   stepOne: {
@@ -262,10 +319,9 @@ const styles = StyleSheet.create({
     marginTop: 8,
     borderColor: "#DEE4E8",
     borderWidth: 1,
-    borderRadius:10,
+    borderRadius: 10,
     paddingLeft: 17,
-    color: '#C1C2C5',
-    fontWeight: "bold"
+    color: '#000',
   },
   arabic: {
     // width: 360,j
@@ -280,8 +336,7 @@ const styles = StyleSheet.create({
     height: 16,
     fontSize: 14,
     marginTop: 15,
-    color: "#57504B",
-    fontWeight: "bold"
+    color: "#000",
   },
   description: {
     marginTop: 14,
@@ -302,12 +357,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     // width: 360,
     height: 108,
-    borderRadius:10,
+    borderRadius: 10,
     borderColor: "lightgray",
     borderWidth: 1,
     paddingLeft: 17,
-    fontWeight: "bold",
-    color: '#C1C2C5',
+    color: '#000',
     paddingBottom: 10,
   },
   arabic_dsc: {
@@ -331,6 +385,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2E7D3",
     alignItems: "center",
     justifyContent: "center",
+  },
+  error: {
+    color: "red",
+    fontSize: 12
   }
 })
 
